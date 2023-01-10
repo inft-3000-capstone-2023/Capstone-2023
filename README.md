@@ -1,4 +1,4 @@
-<h1>Capstone-2023</h1>
+<h1>Capstone 2023 Group Project</h1>
 Repo for the Capstone project for winter 2023 semester.
 
 <br></br>
