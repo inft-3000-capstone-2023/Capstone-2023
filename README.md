@@ -3,11 +3,11 @@ Repo for the Capstone project for winter 2023 semester.
 
 <br></br>
 
-Group Members | Student Numbers
+Group Members | Student Numbers | Role
 ------------  | ------------
-Armand Kaufmann | W0452822
-Sam Singleton | w0458670 
-Jayden Harvey | w0456414
-Gabriel Teixeira | w0452219
-Mark Jamieson-Simmons | w0450992
-Yitian Yang | w0454055
+Gabriel Teixeira | w0452219 | Project Manager
+Armand Kaufmann | W0452822 | Developer
+Sam Singleton | w0458670 | Developer
+Jayden Harvey | w0456414 | Developer
+Mark Jamieson-Simmons | w0450992 | Developer
+Yitian Yang | w0454055 | Developer
