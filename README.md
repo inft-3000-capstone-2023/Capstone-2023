@@ -4,7 +4,7 @@ Repo for the Capstone project for winter 2023 semester.
 <br></br>
 
 Group Members | Student Numbers | Role
-------------  | ------------
+------------  | ------------ | ------------
 Gabriel Teixeira | w0452219 | Project Manager
 Armand Kaufmann | W0452822 | Developer
 Sam Singleton | w0458670 | Developer
