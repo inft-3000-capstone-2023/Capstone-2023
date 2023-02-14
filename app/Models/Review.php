@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Review extends Model
 {
     use HasFactory;
+
+    function client(){
+        return $this->belongsTo(Client::class);
+    }
+
+    function customer(){
+        return $this->belongsTo(Customer::class);
+    }
 }
