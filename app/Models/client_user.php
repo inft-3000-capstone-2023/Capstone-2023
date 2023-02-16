@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class client_user extends Model
 {
     use HasFactory;
+
+    function roles(){
+        return $this->belongsToMany(role::class);
+    }
+
+    function client(){
+        return $this->belongsTo(Client::class);
+    }
 }

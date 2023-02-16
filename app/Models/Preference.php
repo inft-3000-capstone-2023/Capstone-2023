@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Preference extends Model
 {
     use HasFactory;
+
+    function customers(){
+        return $this->belongsToMany(Customer::class);
+    }
 }

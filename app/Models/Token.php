@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Token extends Model
 {
     use HasFactory;
+
+    function client(){
+        return $this->belongsTo(Client::class);
+    }
+
+    function roles(){
+        return $this->belongsToMany(role::class);
+    }
 }
