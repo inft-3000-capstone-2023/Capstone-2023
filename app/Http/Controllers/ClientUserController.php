@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\client_user;
+use App\Models\Client_User;
 use Illuminate\Http\Request;
 
 class ClientUserController extends Controller
@@ -41,10 +41,10 @@ class ClientUserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\client_user  $client_user
+     * @param  \App\Models\Client_User  $client_user
      * @return \Illuminate\Http\Response
      */
-    public function show(client_user $client_user)
+    public function show(Client_User $client_user)
     {
         //
     }
@@ -52,10 +52,10 @@ class ClientUserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\client_user  $client_user
+     * @param  \App\Models\Client_User  $client_user
      * @return \Illuminate\Http\Response
      */
-    public function edit(client_user $client_user)
+    public function edit(Client_User $client_user)
     {
         //
     }
@@ -64,10 +64,10 @@ class ClientUserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\client_user  $client_user
+     * @param  \App\Models\Client_User  $client_user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, client_user $client_user)
+    public function update(Request $request, Client_User $client_user)
     {
         //
     }
@@ -75,10 +75,10 @@ class ClientUserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\client_user  $client_user
+     * @param  \App\Models\Client_User  $client_user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(client_user $client_user)
+    public function destroy(Client_User $client_user)
     {
         //
     }

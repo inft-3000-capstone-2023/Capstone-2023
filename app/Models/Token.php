@@ -14,6 +14,6 @@ class Token extends Model
     }
 
     function roles(){
-        return $this->belongsToMany(role::class);
+        return $this->belongsToMany(Role::class);
     }
 }

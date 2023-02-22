@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignId('customer_id');
             $table->foreignId('event_id');
             $table->decimal('total', $precision = 8, $scale = 2);
+            $table->integer('number_tickets');
+            $table->string('qr_code_string');
             $table->timestamps();
 
             //fk
