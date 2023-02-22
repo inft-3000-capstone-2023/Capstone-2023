@@ -22,7 +22,7 @@ class Client extends Model
     }
 
     function clientUsers(){
-        return $this->hasMany(client_user::class);
+        return $this->hasMany(Client_User::class);
     }
 
     function events(){

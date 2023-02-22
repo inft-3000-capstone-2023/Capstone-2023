@@ -19,6 +19,9 @@ return new class extends Migration
             $table->foreignId('client_id');
             $table->string('event_title');
             $table->text('event_description')->nullable();
+            $table->integer('max_tickets_per_customer');
+            $table->time('time');
+            $table->string('time_zone');
             $table->string('street');
             $table->string('city');
             $table->string('province');

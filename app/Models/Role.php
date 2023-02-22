@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class role extends Model
+class Role extends Model
 {
     use HasFactory;
 
@@ -14,6 +14,6 @@ class role extends Model
     }
 
     function clientUsers(){
-        return $this->belongsToMany(client_user::class);
+        return $this->belongsToMany(Client_User::class, 'client_role_user', 'client_user_id', 'role_id');
     }
 }

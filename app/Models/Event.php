@@ -18,6 +18,6 @@ class Event extends Model
     }
 
     function transactions(){
-        return $this->belongsToMany(Transaction::class);
+        return $this->hasMany(Transaction::class);
     }
 }

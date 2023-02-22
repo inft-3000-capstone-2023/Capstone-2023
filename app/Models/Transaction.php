@@ -9,12 +9,8 @@ class Transaction extends Model
 {
     use HasFactory;
 
-    function events(){
-        return $this->belongsToMany(Event::class);
-    }
-
-    function tickets(){
-        return $this->hasMany(Ticket::class);
+    function event(){
+        return $this->belongsTo(Event::class);
     }
 
     function customer(){

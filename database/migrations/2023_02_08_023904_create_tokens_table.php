@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('client_id');
             $table->string('email');
+            $table->string('token_string');
             $table->timestamps();
 
             //fk

@@ -16,9 +16,8 @@ return new class extends Migration
         Schema::create('client_users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('client_id');
-            $table->string('username');
-            $table->string('password');
             $table->string('email')->unique();
+            $table->string('password');
             $table->timestamps();
 
             //fk
