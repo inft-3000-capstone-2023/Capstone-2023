@@ -18,6 +18,7 @@ return new class extends Migration
             $table->timestamps();
             $table->string('company_name');
             $table->text('description');
+            $table->softDeletes();
             $table->string('logo_path')->nullable();
         });
     }

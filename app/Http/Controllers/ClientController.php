@@ -15,6 +15,8 @@ class ClientController extends Controller
     public function index()
     {
         //
+        $clients = Client::orderBy('company_name', 'ASC')->get();
+        return view('admin.index', compact(['clients']));
     }
 
     /**
@@ -25,6 +27,7 @@ class ClientController extends Controller
     public function create()
     {
         //
+        return view('admin.create');
     }
 
     /**
@@ -36,6 +39,17 @@ class ClientController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'company_name' => ['required','unique:clients,company_name'],
+            'description' => ['required'],
+        ]);
+
+        Client::create([
+            'company_name' => $request->company_name,
+            'description' => $request->description,
+        ]);
+
+        return redirect(route('admin.index'))->with('status', 'Client created');
     }
 
     /**
@@ -81,5 +95,8 @@ class ClientController extends Controller
     public function destroy(Client $client)
     {
         //
+        $client->delete();
+
+        return redirect(route('admin.index'))->with('status', 'Client has been deleted');
     }
 }

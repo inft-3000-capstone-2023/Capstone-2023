@@ -20,3 +20,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('admin', App\Http\Controllers\ClientController::class);
+// Will need to add middleware here to prevent unauthorized access
