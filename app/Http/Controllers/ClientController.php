@@ -55,12 +55,14 @@ class ClientController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Client  $client
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Client $client)
+    public function show($id)
     {
         //
+        $client = Client::find($id);
+        return view('admin.show', compact(['client']));
     }
 
     /**
@@ -72,6 +74,7 @@ class ClientController extends Controller
     public function edit(Client $client)
     {
         //
+//        dd($client->id);
     }
 
     /**
