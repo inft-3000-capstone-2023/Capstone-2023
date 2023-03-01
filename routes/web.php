@@ -23,3 +23,8 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::view('/overview','Client_Landing/client_home');
+
+Route::view('/client_login','Client_Landing/client_login');
+
+Route::view('/client_register','Client_Landing/client_register');
+

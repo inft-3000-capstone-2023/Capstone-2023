@@ -37,13 +37,13 @@
     --dl-space-space-oneandhalfunits: 24px;
 }
 .button {
-    color: var(--dl-color-gray-black);
+    color: var(--dl-color-gray-white);
     display: inline-block;
     padding: 0.5rem 1rem;
-    border-color: var(--dl-color-gray-black);
+    border-color: var(--dl-color-lighter-navy-blue);
     border-width: 1px;
     border-radius: 4px;
-    background-color: var(--dl-color-gray-white);
+    background-color: var(--dl-color-lighter-navy-blue);
 }
 .input {
     color: var(--dl-color-gray-black);
