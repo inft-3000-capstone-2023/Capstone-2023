@@ -68,36 +68,51 @@ class ClientController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Client  $client
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Client $client)
+    public function edit(int $id)
     {
         //
-//        dd($client->id);
+        $client = Client::find($id);
+        return view('admin.edit', compact(['client']));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Client  $client
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Client $client)
+    public function update(Request $request, int $id)
     {
         //
+        $client = Client::find($id);
+
+        $request->validate([
+            'company_name' => ['required','unique:clients,company_name,'.$client->id],
+            'description' => ['required'],
+        ]);
+
+        $client->company_name = $request->company_name;
+        $client->description = $request->description;
+        $client->save();
+
+        return redirect(route('admin.index'))->with('status', 'Client has been updated');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Client  $client
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Client $client)
+    public function destroy(int $id)
     {
         //
+        $client = Client::find($id);
+
         $client->delete();
 
         return redirect(route('admin.index'))->with('status', 'Client has been deleted');
