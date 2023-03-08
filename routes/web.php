@@ -20,6 +20,12 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::resource('admins', App\Http\Controllers\AdminController::class);
+
+Route::resource('clients', App\Http\Controllers\ClientController::class);
+
+Route::resource('customers', App\Http\Controllers\CustomerController::class);
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::view('/overview','Client_Landing/client_home');
