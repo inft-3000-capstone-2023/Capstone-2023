@@ -28,9 +28,11 @@ Route::resource('customers', App\Http\Controllers\CustomerController::class);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::resource('admin', App\Http\Controllers\ClientController::class);
+// TODO Will need to add middleware here to prevent unauthorized access
+
 Route::view('/overview','Client_Landing/client_home');
 
 Route::view('/client_login','Client_Landing/client_login');
 
 Route::view('/client_register','Client_Landing/client_register');
-
