@@ -20,16 +20,17 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::resource('admins', App\Http\Controllers\AdminController::class);
+Route::resource('admin', App\Http\Controllers\AdminController::class);
 
 Route::resource('clients', App\Http\Controllers\ClientController::class);
+
+// TODO Jay - This is to use the Event Controller with a named route, does it need to be a named route?
+//  Could make this a non-resource route to simplify, since it only has show and delete func so far
+Route::resource('clients/event', App\Http\Controllers\EventController::class);
 
 Route::resource('customers', App\Http\Controllers\CustomerController::class);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::resource('admin', App\Http\Controllers\ClientController::class);
-// TODO Will need to add middleware here to prevent unauthorized access
 
 Route::view('/overview','Client_Landing/client_home');
 

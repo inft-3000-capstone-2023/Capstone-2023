@@ -19,7 +19,7 @@
                             </div>
                         @endif
 
-                        <a href="{{ route('admin.create') }}" class="btn btn-outline-primary">Create New Client</a>
+                        <a href="{{ route('clients.create') }}" class="btn btn-outline-primary">Create New Client</a>
 
                         <table class="table">
                         <thead>
@@ -37,15 +37,15 @@
                                 <td>{{ $client->company_name }}</td>
                                 <td>{{ $client->created_at }}</td>
 
-                                <td> <a href="{{ route('admin.edit', [$client->id]) }}" class="btn btn-warning">Edit</a></td>
+                                <td> <a href="{{ route('clients.edit', [$client->id]) }}" class="btn btn-warning">Edit</a></td>
                                 <td>
-                                    <form method="POST" action="{{ route('admin.destroy', $client->id) }}">
+                                    <form method="POST" action="{{ route('clients.destroy', $client->id) }}">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">Delete</button>
                                     </form>
                                 </td>
-                                <td><a href="{{ route('admin.show', [$client->id]) }}" class="btn btn-outline-secondary">Details</a></td>
+                                <td><a href="{{ route('clients.show', [$client->id]) }}" class="btn btn-outline-secondary">Details</a></td>
                             </tr>
                         @endforeach
                         </tbody>

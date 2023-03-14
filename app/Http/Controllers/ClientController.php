@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\Event;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -16,7 +17,7 @@ class ClientController extends Controller
     {
         //
         $clients = Client::orderBy('company_name', 'ASC')->get();
-        return view('admin.index', compact(['clients']));
+        return view('admin_views.clients.index', compact(['clients']));
     }
 
     /**
@@ -27,7 +28,7 @@ class ClientController extends Controller
     public function create()
     {
         //
-        return view('admin.create');
+        return view('admin_views.clients.create');
     }
 
     /**
@@ -49,7 +50,7 @@ class ClientController extends Controller
             'description' => $request->description,
         ]);
 
-        return redirect(route('admin.index'))->with('status', 'Client created');
+        return redirect(route('clients.index'))->with('status', 'Client created');
     }
 
     /**
@@ -58,11 +59,12 @@ class ClientController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(int $id)
     {
         //
         $client = Client::find($id);
-        return view('admin.show', compact(['client']));
+        $events = $client->events;
+        return view('admin_views.clients.show', compact(['client', 'events']));
     }
 
     /**
@@ -75,7 +77,7 @@ class ClientController extends Controller
     {
         //
         $client = Client::find($id);
-        return view('admin.edit', compact(['client']));
+        return view('admin_views.clients.edit', compact(['client']));
     }
 
     /**
@@ -99,7 +101,7 @@ class ClientController extends Controller
         $client->description = $request->description;
         $client->save();
 
-        return redirect(route('admin.index'))->with('status', 'Client has been updated');
+        return redirect(route('clients.index'))->with('status', 'Client has been updated');
     }
 
     /**
@@ -112,9 +114,8 @@ class ClientController extends Controller
     {
         //
         $client = Client::find($id);
-
         $client->delete();
 
-        return redirect(route('admin.index'))->with('status', 'Client has been deleted');
+        return redirect(route('clients.index'))->with('status', 'Client has been deleted');
     }
 }

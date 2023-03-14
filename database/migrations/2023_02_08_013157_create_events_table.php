@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('province');
             $table->string('postal_code');
             $table->decimal('ticket_price', $precision = 8, $scale = 2);
+            $table->softDeletes();
 
             //foreign key constraints
             $table->foreign('client_id')->references('id')->on('clients');

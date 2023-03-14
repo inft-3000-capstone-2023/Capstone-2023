@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\Event;
 use Illuminate\Http\Request;
 
@@ -41,12 +42,14 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Event  $event
+     * @param  int $event_id
      * @return \Illuminate\Http\Response
      */
-    public function show(Event $event)
+    public function show(int $event_id)
     {
         //
+        $event = Event::find($event_id);
+        return view('admin_views.clients.events.show', compact('event'));
     }
 
     /**
@@ -75,11 +78,15 @@ class EventController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Event  $event
+     * @param  int $event_id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Event $event)
+    public function destroy(int $event_id)
     {
         //
+        $event = Event::find($event_id);
+        $event->delete();
+
+        return redirect(route('clients.show', $event->client_id))->with('status', 'Client Event has been deleted');
     }
 }

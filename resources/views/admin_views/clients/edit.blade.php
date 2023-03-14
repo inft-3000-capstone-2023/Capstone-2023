@@ -21,7 +21,7 @@
 
 {{--                        {{ dd($client->id) }}--}}
 
-                        <form method="POST" action="{{ route('admin.update', $client) }}">
+                        <form method="POST" action="{{ route('clients.update', $client) }}">
                             @csrf
                             @method('PUT')
                             <div class="mb-3">
@@ -39,7 +39,7 @@
                                 @enderror
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
-                            <a href="{{ route('admin.index') }}" class="btn btn-outline-danger">Cancel</a>
+                            <a href="{{ route('clients.index') }}" class="btn btn-outline-danger">Cancel</a>
                         </form>
                     </div>
                 </div>
