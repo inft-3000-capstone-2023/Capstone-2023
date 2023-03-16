@@ -13,11 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('admins', function (Blueprint $table) {
+        Schema::create('client_customers', function (Blueprint $table) {
             $table->id();
-            $table->string('email')->unique();
-            $table->string('password');
+            $table->foreignId('user_id');
+            $table->foreignId('client_id');
             $table->timestamps();
+
+            //fk
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('client_id')->references('id')->on('clients');
         });
     }
 
@@ -28,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('admins');
+        Schema::dropIfExists('client_customer');
     }
 };

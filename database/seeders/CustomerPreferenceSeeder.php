@@ -17,58 +17,58 @@ class CustomerPreferenceSeeder extends Seeder
     public function run()
     {
         //customer 1
-        DB::table('customer_preference')->insert([
-            'customer_id' => 1,
+        DB::table('client_customer_preference')->insert([
+            'client_customer_id' => 1,
             'preference_id' => 1,
             'created_at' => Carbon::now(),
         ]);
 
-        DB::table('customer_preference')->insert([
-            'customer_id' => 1,
+        DB::table('client_customer_preference')->insert([
+            'client_customer_id' => 1,
             'preference_id' => 3,
             'created_at' => Carbon::now(),
         ]);
 
-        DB::table('customer_preference')->insert([
-            'customer_id' => 1,
+        DB::table('client_customer_preference')->insert([
+            'client_customer_id' => 1,
             'preference_id' => 5,
             'created_at' => Carbon::now(),
         ]);
 
         //customer 2
-        DB::table('customer_preference')->insert([
-            'customer_id' => 2,
+        DB::table('client_customer_preference')->insert([
+            'client_customer_id' => 2,
             'preference_id' => 1,
             'created_at' => Carbon::now(),
         ]);
 
-        DB::table('customer_preference')->insert([
-            'customer_id' => 2,
+        DB::table('client_customer_preference')->insert([
+            'client_customer_id' => 2,
             'preference_id' => 2,
             'created_at' => Carbon::now(),
         ]);
 
-        DB::table('customer_preference')->insert([
-            'customer_id' => 2,
+        DB::table('client_customer_preference')->insert([
+            'client_customer_id' => 2,
             'preference_id' => 3,
             'created_at' => Carbon::now(),
         ]);
 
-        DB::table('customer_preference')->insert([
-            'customer_id' => 2,
+        DB::table('client_customer_preference')->insert([
+            'client_customer_id' => 2,
             'preference_id' => 4,
             'created_at' => Carbon::now(),
         ]);
 
-        DB::table('customer_preference')->insert([
-            'customer_id' => 2,
+        DB::table('client_customer_preference')->insert([
+            'client_customer_id' => 2,
             'preference_id' => 5,
             'created_at' => Carbon::now(),
         ]);
 
         //customer 3
-        DB::table('customer_preference')->insert([
-            'customer_id' => 3,
+        DB::table('client_customer_preference')->insert([
+            'client_customer_id' => 3,
             'preference_id' => 3,
             'created_at' => Carbon::now(),
         ]);

@@ -9,6 +9,14 @@ class Event extends Model
 {
     use HasFactory;
 
+    protected $table = 'events';
+
+    protected $fillable = [
+        'client_id','event_title', 'event_description',
+        'max_tickets_per_customer', 'date_time', 'time_zone', 'street',
+        'city', 'province', 'postal_code', 'ticket_price'
+    ];
+
     function client(){
         return $this->belongsTo(Client::class);
     }

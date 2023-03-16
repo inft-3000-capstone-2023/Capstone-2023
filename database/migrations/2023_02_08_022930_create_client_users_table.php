@@ -16,12 +16,12 @@ return new class extends Migration
         Schema::create('client_users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('client_id');
-            $table->string('email')->unique();
-            $table->string('password');
+            $table->foreignId('user_id');
             $table->timestamps();
 
             //fk
             $table->foreign('client_id')->references('id')->on('clients');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
