@@ -41,13 +41,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    //relationship methods
-    function client_customers(){
-        return $this->hasMany(Client_Customer::class);
-    }
-
-    function client_users(){
-        return $this->hasMany(Client_User::class);
-    }
 }
