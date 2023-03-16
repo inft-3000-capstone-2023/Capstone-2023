@@ -13,15 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('client_customer_preference', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->integer('type'); //0 - admin, 1 - client_user, 2 - customer
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->foreignId('client_customer_id');
+            $table->foreignId('preference_id');
             $table->timestamps();
+
+            //fk
+            $table->foreign('client_customer_id')->references('id')->on('client_customers');
+            $table->foreign('preference_id')->references('id')->on('preferences');
         });
     }
 
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('client_customer_preference');
     }
 };

@@ -13,15 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('event_image', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->integer('type'); //0 - admin, 1 - client_user, 2 - customer
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->foreignId('event_id');
+            $table->foreignId('image_id');
             $table->timestamps();
+
+            //fk
+            $table->foreign('event_id')->references('id')->on('events');
+            $table->foreign('image_id')->references('id')->on('images');
         });
     }
 
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('event_image');
     }
 };

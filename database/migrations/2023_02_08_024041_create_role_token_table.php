@@ -13,15 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('role_token', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->integer('type'); //0 - admin, 1 - client_user, 2 - customer
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->foreignId('role_id');
+            $table->foreignId('token_id');
             $table->timestamps();
+
+            //fk
+            $table->foreign('role_id')->references('id')->on('roles');
+            $table->foreign('token_id')->references('id')->on('tokens');
         });
     }
 
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('role_token');
     }
 };
