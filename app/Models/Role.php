@@ -14,6 +14,6 @@ class Role extends Model
     }
 
     function clientUsers(){
-        return $this->belongsToMany(Client_User::class, 'client_role_user', 'client_user_id', 'role_id');
+        return $this->belongsToMany(Client_User::class, 'client_role_user', 'role_id');
     }
 }

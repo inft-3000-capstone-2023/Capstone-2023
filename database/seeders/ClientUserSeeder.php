@@ -18,22 +18,19 @@ class ClientUserSeeder extends Seeder
     {
         DB::table('client_users')->insert([
             'client_id' => 1,
-            'email' => 'client1user1@example.com',
-            'password' => '$2a$12$Ffqgyj1SIPpJULcPgBlksu5bnHEtWXFwQdqeNcnV0tBK9Gg0rkJNy',
+            'user_id' => 6,
             'created_at' => Carbon::now(),
         ]);
 
         DB::table('client_users')->insert([
             'client_id' => 2,
-            'email' => 'client2user1@example.com',
-            'password' => '$2a$12$noc95arSzRmlXS.477GE4OCVA0OoRUSg932Lr3sFhlcqZ22RDCmqq',
+            'user_id' => 7,
             'created_at' => Carbon::now(),
         ]);
 
         DB::table('client_users')->insert([
             'client_id' => 3,
-            'email' => 'client3user1@example.com',
-            'password' => '$2a$12$p3cHaT4saWQohOFwSU6mEu6Ump27BaR854gibE5k97ty7hBjAz4nC',
+            'user_id' => 8,
             'created_at' => Carbon::now(),
         ]);
 

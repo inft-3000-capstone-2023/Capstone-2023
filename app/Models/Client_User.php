@@ -9,11 +9,17 @@ class Client_User extends Model
 {
     use HasFactory;
 
+    public $table = 'client_users';
+
     function roles(){
-        return $this->belongsToMany(Role::class, 'client_role_user', 'role_id', 'client_user_id');
+        return $this->belongsToMany(Role::class, 'client_role_user', 'client_user_id');
     }
 
     function client(){
         return $this->belongsTo(Client::class);
+    }
+
+    function user(){
+        return $this->belongsTo(User::class);
     }
 }

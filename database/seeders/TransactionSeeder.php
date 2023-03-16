@@ -17,7 +17,7 @@ class TransactionSeeder extends Seeder
     public function run()
     {
         DB::table('transactions')->insert([
-            'customer_id' => 1,
+            'client_customer_id' => 1,
             'event_id' => 1,
             'total' => 11.98, //two tickets at 5.99 each
             'number_tickets' => 2,
@@ -26,7 +26,7 @@ class TransactionSeeder extends Seeder
         ]);
 
         DB::table('transactions')->insert([
-            'customer_id' => 2,
+            'client_customer_id' => 2,
             'event_id' => 2,
             'total' => 6.99, //one ticket
             'number_tickets' => 1,
@@ -35,7 +35,7 @@ class TransactionSeeder extends Seeder
         ]);
 
         DB::table('transactions')->insert([
-            'customer_id' => 3,
+            'client_customer_id' => 3,
             'event_id' => 3,
             'total' => 0.00, //free
             'number_tickets' => 6,

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('event_title');
             $table->text('event_description')->nullable();
             $table->integer('max_tickets_per_customer');
-            $table->time('time');
+            $table->dateTime('date_time');
             $table->string('time_zone');
             $table->string('street');
             $table->string('city');

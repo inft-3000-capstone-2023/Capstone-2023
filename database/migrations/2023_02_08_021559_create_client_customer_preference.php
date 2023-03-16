@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('customer_preference', function (Blueprint $table) {
+        Schema::create('client_customer_preference', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('customer_id');
+            $table->foreignId('client_customer_id');
             $table->foreignId('preference_id');
             $table->timestamps();
 
             //fk
-            $table->foreign('customer_id')->references('id')->on('customers');
+            $table->foreign('client_customer_id')->references('id')->on('client_customers');
             $table->foreign('preference_id')->references('id')->on('preferences');
         });
     }
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('customer_preference');
+        Schema::dropIfExists('client_customer_preference');
     }
 };

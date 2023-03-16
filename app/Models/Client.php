@@ -11,10 +11,12 @@ class Client extends Model
     use HasFactory;
     use softDeletes;
 
-    protected $fillable = ['company_name','description'];
+    protected $fillable = [
+        'company_name','description', 'logo_path'
+    ];
 
     function customers(){
-        return $this->belongsToMany(Customer::class);
+        return $this->hasMany(Client_Customer::class);
     }
 
     function reviews(){

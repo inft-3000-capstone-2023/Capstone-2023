@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('customer_id');
+            $table->foreignId('client_customer_id');
             $table->foreignId('event_id');
             $table->decimal('total', $precision = 8, $scale = 2);
             $table->integer('number_tickets');
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->timestamps();
 
             //fk
-            $table->foreign('customer_id')->references('id')->on('customers');
+            $table->foreign('client_customer_id')->references('id')->on('client_customers');
             $table->foreign('event_id')->references('id')->on('events');
         });
     }

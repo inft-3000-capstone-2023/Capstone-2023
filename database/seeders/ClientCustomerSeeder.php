@@ -16,20 +16,20 @@ class ClientCustomerSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('client_customer')->insert([
-            'customer_id' => 1,
+        DB::table('client_customers')->insert([
+            'user_id' => 3,
             'client_id' => 1,
             'created_at' => Carbon::now(),
         ]);
 
-        DB::table('client_customer')->insert([
-            'customer_id' => 2,
+        DB::table('client_customers')->insert([
+            'user_id' => 4,
             'client_id' => 2,
             'created_at' => Carbon::now(),
         ]);
 
-        DB::table('client_customer')->insert([
-            'customer_id' => 3,
+        DB::table('client_customers')->insert([
+            'user_id' => 5,
             'client_id' => 3,
             'created_at' => Carbon::now(),
         ]);
