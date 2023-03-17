@@ -14,11 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect(route('home'));
 });
 
 
 Auth::routes();
+
+//landing page routes ==================================================================================================
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//======================================================================================================================
 
 Route::resource('admins', App\Http\Controllers\AdminController::class);
 
@@ -26,13 +30,7 @@ Route::resource('clients', App\Http\Controllers\ClientController::class);
 
 Route::resource('customers', App\Http\Controllers\ClientCustomerController::class);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::resource('admin', App\Http\Controllers\ClientController::class);
+Route::resource('admin', App\Http\Controllers\ClientController::class)->middleware(['auth', 'check.user.admin']);
 // TODO Will need to add middleware here to prevent unauthorized access
 
 Route::view('/overview','Client_Landing/client_home');
-
-Route::view('/client_login','Client_Landing/client_login');
-
-Route::view('/client_register','Client_Landing/client_register');
