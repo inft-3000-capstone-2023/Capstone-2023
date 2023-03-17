@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('main_landing.layouts.app')
 
 @section('content')
 <div class="container">
     <div class="row justify-content-start">
-        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}" />
     <div class="col-md-8">
         <link
             rel="stylesheet"
@@ -11,17 +11,24 @@
             data-tag="font"
         />
         <div>
-            <link href="css/client_login.css" rel="stylesheet" />
-            <div class="login-container">
-                <div class="login-section">
+            <link href="{{ URL::asset('css/client_register.css') }}" rel="stylesheet" />
+            <div class="register-container">
+                <div class="register-section">
                     <img
                         src="/img/logo.png"
                         alt="image"
                         id="logo_image"
-                        class="login-image image_logo"
+                        class="register-image image_logo"
                     />
-                    <h1 id="heading_login" class="login-text">Log In</h1>
-                    <form id="form_login" class="login-form">
+                    <h1 id="heading_register" class="register-text">Create an account</h1>
+                    <form id="form_register" class="register-form">
+                        <input
+                            type="text"
+                            placeholder="Name"
+                            id="input_name"
+                            class="input input_name"
+                        />
+
                         <input
                             type="text"
                             placeholder="Email"
@@ -34,25 +41,25 @@
                             id="input_password"
                             class="input input_password"
                         />
-                        <button type="submit" id="button_login" class="button button_login">
-                            Log In
+                        <button type="submit" id="button_signup" class="button button_signup">
+                            Sign Up
                         </button>
                         <button type="submit" id="button_google" class="button button_google">
-                            Sign In with Google
+                            Sign Up with Google
                         </button>
-                        <button type="submit" id="button_signup" class="button button_signup">
+                        <button type="submit" id="button_login" class="button button_login2">
           <span>
-            <span>Sign Up</span>
+            <span>Log In</span>
             <br />
           </span>
                         </button>
                     </form>
                 </div>
-                <div class="login-img">
+                <div class="register-img">
                     <img
-                        src="https://images.unsplash.com/photo-1569930784237-ea65a2f40a83?ixid=Mnw5MTMyMXwwfDF8c2VhcmNofDI3fHxldmVudHxlbnwwfHx8fDE2Nzc2MTAyNzY&amp;ixlib=rb-4.0.3&amp;h=1100"
+                        src="https://images.unsplash.com/photo-1540317580384-e5d43616b9aa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
                         alt="image"
-                        id="side_image1"
+                        id="side_image2"
                         class="image_side"
                     />
                 </div>
