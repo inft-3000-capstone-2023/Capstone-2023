@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CheckUserIsAdmin
+class CheckUserIsClientUser
 {
     /**
      * Handle an incoming request.
@@ -17,10 +17,10 @@ class CheckUserIsAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user()->type == 0){
+        if (Auth::user()->type == 1){
             return $next($request);
         }
 
-        return redirect()->back()->with('warning', 'Only administrators have access to the admin page!');
+        return redirect()->back()->with('warning', 'Only business/organization clients have access to this page!');
     }
 }

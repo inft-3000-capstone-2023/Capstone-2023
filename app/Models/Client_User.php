@@ -11,6 +11,10 @@ class Client_User extends Model
 
     public $table = 'client_users';
 
+    protected $fillable = [
+        'client_id','user_id', 'created_at'
+    ];
+
     function roles(){
         return $this->belongsToMany(Role::class, 'client_role_user', 'client_user_id');
     }
@@ -21,5 +25,13 @@ class Client_User extends Model
 
     function user(){
         return $this->belongsTo(User::class);
+    }
+
+    function email(){
+        return $this->user->email;
+    }
+
+    function name(){
+        return $this->user->name;
     }
 }

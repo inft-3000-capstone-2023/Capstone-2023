@@ -31,4 +31,12 @@ class Client_Customer extends Model
     function preferences(){
         return $this->belongsToMany(Preference::class, 'client_customer_preference', 'client_customer_id');
     }
+
+    function email(){
+        return $this->user->email;
+    }
+
+    function name(){
+        return $this->user->name;
+    }
 }
