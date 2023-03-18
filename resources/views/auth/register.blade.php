@@ -21,26 +21,40 @@
                         class="register-image image_logo"
                     />
                     <h1 id="heading_register" class="register-text">Create an account</h1>
-                    <form id="form_register" class="register-form">
-                        <input
-                            type="text"
-                            placeholder="Name"
-                            id="input_name"
-                            class="input input_name"
-                        />
+                    <form id="form_register" class="register-form" method="POST" action="{{ route('register') }}">
+                        @csrf
+                        <div>
+                            <input type="text" placeholder="Name" id="input_name" class="input input_name @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus/>
 
-                        <input
-                            type="text"
-                            placeholder="Email"
-                            id="input_email"
-                            class="input input_email"
-                        />
-                        <input
-                            type="text"
-                            placeholder="Password"
-                            id="input_password"
-                            class="input input_password"
-                        />
+                            @error('name')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <input type="text" placeholder="Email" id="input_email" class="input input_email @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email"/>
+
+                            @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </div>
+                        <div>
+                            <input type="password" placeholder="Password" id="input_password" class="input input_password @error('password') is-invalid @enderror" name="password" required autocomplete="new-password"/>
+
+                            @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </div>
+{{--                        style margins are temporary, until bootstrap styles are implemented--}}
+                        <div style="margin-left: 400px; margin-top: 65px">
+                            <input type="password" placeholder="Confirm Password" id="password-confirm" class="form-control" name="password_confirmation" required autocomplete="new-password"/>
+                        </div>
                         <button type="submit" id="button_signup" class="button button_signup">
                             Sign Up
                         </button>

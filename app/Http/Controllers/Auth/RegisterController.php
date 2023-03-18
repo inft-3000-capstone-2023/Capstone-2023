@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Client_User;
+use App\Models\Client;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -29,6 +33,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
+    //will have to change this to redirect to the client's home page
     protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
@@ -64,10 +69,28 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        //create a new user of type client user
+        $newUser = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'type' => 1,
         ]);
+
+        //create a new client record
+        $client = Client::create([
+            'company_name' => $newUser->name."'s Company",
+            'description' => 'This is '.$newUser->name."'s Company description",
+            'created_at' => Carbon::now(),
+        ]);
+
+        //create a new client user record, and attaching the admin role
+        Client_User::create([
+            'client_id' => $client->id,
+            'user_id' => $newUser->id,
+            'created_at' => Carbon::now(),
+        ])->roles()->attach(4);
+
+        return $newUser;
     }
 }
