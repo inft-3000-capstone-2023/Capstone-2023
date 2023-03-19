@@ -9,12 +9,13 @@
 }
 .register-section {
     flex: 1;
+    left: 20px;
     width: 200px;
-    height: 1000px;
+    height: 980px;
     display: flex;
     position: relative;
     align-items: center;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
 }
 .register-text {
@@ -58,30 +59,32 @@
     align-self: center;
     object-fit: cover;
 }
-.input_name {
+#input_name {
     top: 150px;
-    left: 0px;
     width: 350PX;
     height: 60px;
     position: absolute;
 }
-.input_email {
-    top: 220px;
-    left: 0px;
+#input_email {
+    top: 230px;
     width: 350PX;
     height: 60px;
     position: absolute;
 }
-.input_password {
-    top: 290px;
-    left: 0px;
+#input_password {
+    top: 320px;
     width: 350px;
     height: 60px;
     position: absolute;
 }
-.button_signup {
-    top: 380px;
-    left: 0px;
+#input_password_confirm {
+    top: 400px;
+    width: 350px;
+    height: 60px;
+    position: absolute;
+}
+#button_signup {
+    top: 480px;
     color: var(--dl-color-gray-white);
     width: 350px;
     height: var(--dl-size-size-small);
@@ -93,9 +96,8 @@
     font-weight: 700;
     background-color: #277cbb;
 }
-.button_google {
-    top: 450px;
-    left: 0px;
+#button_google {
+    top: 540px;
     color: var(--dl-color-gray-white);
     width: 350px;
     height: var(--dl-size-size-small);
@@ -107,9 +109,8 @@
     font-weight: 700;
     background-color: rgb(39, 124, 187);
 }
-.button_login2 {
-    top: 560px;
-    left: 0px;
+#button_login2 {
+    top: 640px;
     color: var(--dl-color-gray-white);
     width: 175px;
     height: var(--dl-size-size-small);

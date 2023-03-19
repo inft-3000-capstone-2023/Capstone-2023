@@ -21,52 +21,63 @@
                         class="register-image image_logo"
                     />
                     <h1 id="heading_register" class="register-text">Create an account</h1>
-                    <form id="form_register" class="register-form" method="POST" action="{{ route('register') }}">
+                    <form class="register-form" method="POST" action="{{ route('register') }}">
                         @csrf
-                        <div>
-                            <input type="text" placeholder="Name" id="input_name" class="input input_name @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus/>
 
+                        <div class="form-floating mb-3" id="input_name">
+                            <input type="text" id="floatingInput" class="form-control input @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
                             @error('name')
                             <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <strong>{{ $message }}</strong>
+                            </span>
                             @enderror
+                            <label for="floatingInput">User name</label>
                         </div>
 
-                        <div>
-                            <input type="text" placeholder="Email" id="input_email" class="input input_email @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email"/>
-
+                        <div class="form-floating mb-3" id="input_email">
+                            <input type="email" aria-describedby="emailHelp" id="floatingInput"  class="form-control input input_email @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
                             @error('email')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                             @enderror
+                            <label for="floatingInput">Email address</label>
+                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                         </div>
-                        <div>
-                            <input type="password" placeholder="Password" id="input_password" class="input input_password @error('password') is-invalid @enderror" name="password" required autocomplete="new-password"/>
 
+                        <div class="form-floating" id="input_password">
+                            <input type="password" id="floatingPassword" class="form-control input input_password @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
                             @error('password')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                             @enderror
+                            <label for="floatingPassword">Password</label>
                         </div>
-{{--                        style margins are temporary, until bootstrap styles are implemented--}}
-                        <div style="margin-left: 400px; margin-top: 65px">
-                            <input type="password" placeholder="Confirm Password" id="password-confirm" class="form-control" name="password_confirmation" required autocomplete="new-password"/>
+
+
+                        <div class="form-floating mb-3" id="input_password_confirm">
+                            <input type="password"  class="form-control" name="password_confirmation" required autocomplete="new-password"/>
+                            <label for="floatingPassword">Confirm password</label>
                         </div>
-                        <button type="submit" id="button_signup" class="button button_signup">
+
+                        <button type="submit" id="button_signup" class=" btn btn-primary">
                             Sign Up
                         </button>
-                        <button type="submit" id="button_google" class="button button_google">
+
+                        <button type="submit" id="button_google" class=" btn btn-primary">
                             Sign Up with Google
                         </button>
-                        <button type="submit" id="button_login" class="button button_login2">
-          <span>
-            <span>Log In</span>
-            <br />
-          </span>
-                        </button>
+
+                        <a href="{{ route('login') }}">
+                            <button id="button_login2" class=" button btn-primary">
+                              <span>
+                                <span>Log In</span>
+                                <br />
+                              </span>
+                            </button>
+                        </a>
+
                     </form>
                 </div>
                 <div class="register-img">

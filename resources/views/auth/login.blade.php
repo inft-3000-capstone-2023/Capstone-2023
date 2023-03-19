@@ -23,30 +23,38 @@
                     <h1 id="heading_login" class="login-text">Log In</h1>
                     <form id="form_login" class="login-form" method="POST" action="{{ route('login') }}">
                         @csrf
-                        <div>
-                            <input type="text" placeholder="Email" id="input_email" class="input input_email @error('email') is-invalid @enderror"  name="email" value="{{ old('email') }}" required autocomplete="email" autofocus/>
+
+                        <div class="form-floating mb-3" id="input_email">
+                            <input type="email" aria-describedby="emailHelp" id="floatingInput"  class="form-control input input_email @error('email') is-invalid @enderror"  name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                             @error('email')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                             @enderror
+                            <label for="floatingInput">Email address</label>
+                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                         </div>
-                        <div>
-                            <input type="password" placeholder="Password" id="input_password" class="input input_password form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password"/>
+
+                        <div class="form-floating mb-3" id="input_password">
+                            <input type="password" id="floatingPassword" class="form-control input input_password @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
                             @error('password')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                             @enderror
+                            <label for="floatingPassword" >Password</label>
                         </div>
-                        <button type="submit" id="button_login" class="button button_login">
+
+                        <button type="submit" id="button_login" class="btn btn-primary">
                             Log In
                         </button>
-                        <button type="submit" id="button_google" class="button button_google">
+
+                        <button type="submit" id="button_google" class="btn btn-primary">
                             Sign In with Google
                         </button>
+
                         <a href="{{ route('register') }}">
-                            <button id="button_signup" class="button button_signup">
+                            <button id="button_signup" class=" button button_signup">
                               <span>
                                 <span>Sign Up</span>
                                 <br />
