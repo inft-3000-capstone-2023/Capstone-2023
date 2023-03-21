@@ -33,4 +33,27 @@ Route::resource('customers', App\Http\Controllers\ClientCustomerController::clas
 Route::resource('admin', App\Http\Controllers\ClientController::class)->middleware(['auth', 'check.user.admin']);
 // TODO Will need to add middleware here to prevent unauthorized access
 
-Route::view('/overview','Client_Landing/client_home');
+//for testing purpose
+Route::view('/client_event', 'client/pages/event/event_index');
+Route::view('/event_creation1', 'client/pages/event/createS1');
+Route::view('/event_creation2', 'client/pages/event/createS2');
+Route::view('/event_creation3', 'client/pages/event/createS3');
+Route::view('/event_creation4', 'client/pages/event/createS4');
+
+Route::get('events', 'EventController@index')->name('events.index');
+
+Route::get('events/createS1', 'EventController@createS1')->name('events.createS1');
+Route::post('events/createS1', 'EventController@postCreateS1')->name('events.createS1.post');
+
+Route::get('events/createS2', 'EventController@createS2')->name('events.createS2');
+Route::post('events/createS2', 'EventController@postCreateS2')->name('events.createS2.post');
+
+Route::get('events/createS3', 'EventController@createS3')->name('events.createS3');
+Route::post('events/createS3', 'EventController@postcreateS3')->name('events.createS3.post');
+
+Route::get('events/createS4', 'EventController@createS4')->name('events.createS4');
+Route::post('events/createS4', 'EventController@postcreateS4')->name('events.createS4.post');
+
+
+
+
