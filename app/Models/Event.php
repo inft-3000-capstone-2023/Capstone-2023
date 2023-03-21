@@ -17,6 +17,10 @@ class Event extends Model
         'city', 'province', 'postal_code', 'ticket_price'
     ];
 
+    protected $casts = [
+        'date_time' => 'datetime'
+    ];
+
     function client(){
         return $this->belongsTo(Client::class);
     }
