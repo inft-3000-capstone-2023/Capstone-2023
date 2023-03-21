@@ -19,7 +19,12 @@ class ClientCustomerController extends Controller
     public function index()
     {
         $events = Event::orderBy('event_title')->get();
-        return view('customer_views.customer_landing', compact(['events']));
+        return view('customer.customer_client_views.landing', compact(['events']));
+    }
+
+    public function client_page(Client $client){
+        $events = $client->events()->get();
+        return view('customer.customer_client_views.landing', compact(['events', 'client']));
     }
 
     /**

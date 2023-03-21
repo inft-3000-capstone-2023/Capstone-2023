@@ -36,3 +36,6 @@ Route::resource('admin', App\Http\Controllers\ClientController::class)->middlewa
 Route::view('/overview','Client_Landing/client_home');
 
 Route::get('/testing', [App\Http\Controllers\ClientCustomerController::class, 'index']);
+
+//routes for the customer viewing the client pages
+Route::get('/tickets/{client}', [App\Http\Controllers\ClientCustomerController::class, 'client_page']);
