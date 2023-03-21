@@ -9,6 +9,10 @@ class Image extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'path','alt_text', 'description'
+    ];
+
     function events(){
         return $this->belongsToMany(Event::class);
     }
