@@ -36,4 +36,9 @@ Route::resource('admin', App\Http\Controllers\ClientController::class)->middlewa
 Route::view('/overview','Client_Landing/client_home');
 
 //routes for the customer viewing the client pages
-Route::get('/tickets/{client}', [App\Http\Controllers\ClientCustomerController::class, 'client_page']);
+Route::get('/tickets/{client}', [App\Http\Controllers\ClientCustomerController::class,
+    'client_page'])->name('client_page');
+Route::get('/tickets/{client}/bio', [App\Http\Controllers\ClientCustomerController::class,
+    'bio_page'])->name('bio_page');
+Route::get('/tickets/{client}/reviews', [App\Http\Controllers\ClientCustomerController::class,
+    'reviews_page'])->name('reviews_page');

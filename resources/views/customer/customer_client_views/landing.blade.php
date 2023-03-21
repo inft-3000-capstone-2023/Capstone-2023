@@ -10,13 +10,13 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <button type="button" class="btn btn-primary btn-lg form-control">Events</button>
+                        <a type="button" class="btn btn-primary btn-lg form-control">Events</a>
                     </div>
                     <div class="col">
-                        <button type="button" class="btn btn-secondary btn-lg form-control">Review</button>
+                        <a href="{{ route('reviews_page', $client) }}" type="button" class="btn btn-secondary btn-lg form-control">Review</a>
                     </div>
                     <div class="col">
-                        <button type="button" class="btn btn-secondary btn-lg form-control">Bio</button>
+                        <a href="{{ route('bio_page', $client) }}" type="button" class="btn btn-secondary btn-lg form-control">Bio</a>
                     </div>
                 </div>
             </div>

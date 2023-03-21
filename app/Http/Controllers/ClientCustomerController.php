@@ -27,6 +27,15 @@ class ClientCustomerController extends Controller
         return view('customer.customer_client_views.landing', compact(['events', 'client']));
     }
 
+    public function bio_page(Client $client){
+        return view('customer.customer_client_views.bio', compact(['client']));
+    }
+
+    public function reviews_page(Client $client){
+        $reviews = $client->reviews()->get();
+        return view('customer.customer_client_views.reviews', compact(['reviews', 'client']));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
