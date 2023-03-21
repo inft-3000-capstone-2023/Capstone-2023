@@ -33,12 +33,7 @@ Route::resource('customers', App\Http\Controllers\ClientCustomerController::clas
 Route::resource('admin', App\Http\Controllers\ClientController::class)->middleware(['auth', 'check.user.admin']);
 // TODO Will need to add middleware here to prevent unauthorized access
 
-//for testing purpose
-Route::view('/client_event', 'client/pages/event/event_index');
-Route::view('/event_creation1', 'client/pages/event/createS1');
-Route::view('/event_creation2', 'client/pages/event/createS2');
-Route::view('/event_creation3', 'client/pages/event/createS3');
-Route::view('/event_creation4', 'client/pages/event/createS4');
+Route::resource('events',\App\Http\Controllers\EventController::class);
 
 Route::get('events', 'EventController@index')->name('events.index');
 

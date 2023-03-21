@@ -157,7 +157,7 @@ class EventController extends Controller
     }
 
     /**
-     * Show the step Twwo Form for creating a new event.
+     * Show the step Two Form for creating a new event.
      *
      * @return \Illuminate\Http\Response
      */
@@ -230,7 +230,6 @@ class EventController extends Controller
     {
         $event = $request->session()->get('event');
         $event->save();
-
         $request->session()->forget('event');
 
         return redirect()->route('events.index');
