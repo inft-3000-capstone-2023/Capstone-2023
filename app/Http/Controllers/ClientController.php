@@ -117,4 +117,5 @@ class ClientController extends Controller
 
         return redirect(route('admin.index'))->with('status', 'Client has been deleted');
     }
+
 }
