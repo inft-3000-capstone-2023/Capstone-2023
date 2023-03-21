@@ -34,3 +34,5 @@ Route::resource('admin', App\Http\Controllers\ClientController::class)->middlewa
 // TODO Will need to add middleware here to prevent unauthorized access
 
 Route::view('/overview','Client_Landing/client_home');
+
+Route::get('/testing', [App\Http\Controllers\ClientCustomerController::class, 'index']);

@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\Client_Customer;
+use App\Models\Event;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class ClientCustomerController extends Controller
 {
@@ -14,7 +18,8 @@ class ClientCustomerController extends Controller
      */
     public function index()
     {
-        //
+        $events = Event::orderBy('event_title')->get();
+        return view('customer_views.customer_landing', compact(['events']));
     }
 
     /**
