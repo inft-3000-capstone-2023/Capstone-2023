@@ -8,6 +8,7 @@
 }
 
 .flex-column {
+    background-color: #FFFEFA;
     position: absolute;
     top: 60px;
 }
