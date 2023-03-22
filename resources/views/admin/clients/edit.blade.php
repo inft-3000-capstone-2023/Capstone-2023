@@ -1,5 +1,5 @@
-@extends('layouts.app')
-{{--{{ dd($client) }}--}}
+@extends('admin.layouts.app')
+
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -19,9 +19,7 @@
                             </div>
                         @endif
 
-{{--                        {{ dd($client->id) }}--}}
-
-                        <form method="POST" action="{{ route('admin.update', $client) }}">
+                        <form method="POST" action="{{ route('update_client', $client) }}">
                             @csrf
                             @method('PUT')
                             <div class="mb-3">
@@ -33,13 +31,20 @@
                             </div>
                             <div class="mb-3">
                                 <label for="description">Company Description</label>
-                                <input type="text" class="form-control" id="description" name="description" value="{{ old('description') ?? $client->description }}"placeholder="Enter Company Description">
+                                <input type="text" class="form-control" id="description" name="description" value="{{ old('description') ?? $client->description }}" placeholder="Enter Company Description">
                                 @error('description')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
+                            <div class="mb-3">
+                                <label for="logo_path">Logo URL</label>
+                                <input type="text" class="form-control" id="logo_path" name="logo_path" value="{{ old('logo_path') ?? $client->logo_path }}" placeholder="Enter Logo URL">
+                                @error('logo_path')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
-                            <a href="{{ route('admin.index') }}" class="btn btn-outline-danger">Cancel</a>
+                            <a href="{{ route('list_clients') }}" class="btn btn-outline-danger">Cancel</a>
                         </form>
                     </div>
                 </div>

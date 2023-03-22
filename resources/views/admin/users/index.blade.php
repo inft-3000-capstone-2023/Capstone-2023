@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Client List') }}</div>
+                    <div class="card-header">{{ __('Admin User List') }}</div>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -19,33 +19,33 @@
                             </div>
                         @endif
 
-                        <a href="{{ route('admin.create') }}" class="btn btn-outline-primary">Create New Client</a>
+                        <a href="{{ route('create_user') }}" class="btn btn-outline-primary">Create New Admin User</a>
 
                         <table class="table">
                         <thead>
                         <tr>
-                            <th>Client id</th>
-                            <th>Client Name</th>
-                            <th>Created At</th>
+                            <th>User id</th>
+                            <th>User Name</th>
+                            <th>User Email</th>
                             <th colspan="3">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($clients as $client)
+                        @foreach($users as $user)
                             <tr>
-                                <td>{{ $client->id }}</td>
-                                <td>{{ $client->company_name }}</td>
-                                <td>{{ $client->created_at }}</td>
+                                <td>{{ $user->id }}</td>
+                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->email }}</td>
 
-                                <td> <a href="{{ route('admin.edit', [$client->id]) }}" class="btn btn-warning">Edit</a></td>
+                                <td> <a href="{{ route('edit_user', [$user->id]) }}" class="btn btn-warning">Edit</a></td>
                                 <td>
-                                    <form method="POST" action="{{ route('admin.destroy', $client->id) }}">
+                                    <form method="POST" action="{{ route('destroy_user', $user->id) }}">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">Delete</button>
                                     </form>
                                 </td>
-                                <td><a href="{{ route('admin.show', [$client->id]) }}" class="btn btn-outline-secondary">Details</a></td>
+                                <td><a href="{{ route('show_user', [$user->id]) }}" class="btn btn-outline-secondary">Details</a></td>
                             </tr>
                         @endforeach
                         </tbody>

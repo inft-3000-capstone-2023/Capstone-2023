@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Show Client') }}</div>
+                    <div class="card-header">{{ __('Show Admin User') }}</div>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -20,18 +20,18 @@
                         @endif
 
                         <div class="mb-3">
-                            <h4>Company Id</h4>
-                            <p>{{ $client->id }}</p>
+                            <h4>User Id</h4>
+                            <p>{{ $user->id }}</p>
                         </div>
                         <div class="mb-3">
-                            <h4>Company Name</h4>
-                            <p>{{ $client->company_name }}</p>
+                            <h4>User Name</h4>
+                            <p>{{ $user->name }}</p>
                         </div>
                         <div class="mb-3">
-                            <h4>Company Description</h4>
-                            <p>{{ $client->description }}</p>
+                            <h4>Email</h4>
+                            <p>{{ $user->email }}</p>
                         </div>
-                        <a href="{{ route('admin.index') }}" class="btn btn-outline-danger">Back</a>
+                        <a href="{{ route('list_users') }}" class="btn btn-outline-danger">Back</a>
                     </div>
                 </div>
             </div>
