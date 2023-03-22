@@ -20,6 +20,8 @@ return new class extends Migration
             $table->text('description');
             $table->softDeletes();
             $table->string('logo_path')->nullable();
+            $table->integer('total_number_reviews')->default(0); //will get incremented when users leave reviews
+            $table->integer('total_review_rating')->default(0);
         });
     }
 

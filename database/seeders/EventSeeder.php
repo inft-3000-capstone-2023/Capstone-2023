@@ -32,6 +32,51 @@ class EventSeeder extends Seeder
         ]);
 
         DB::table('events')->insert([
+            'client_id' => 1,
+            'event_title' => 'HUNTING IN PACKS',
+            'event_description' => 'Screening night of the Feature Program: "HUNTING IN PACKS"',
+            'max_tickets_per_customer' => 2,
+            'date_time' => Carbon::now()->addWeeks(6),
+            'time_zone' => 'AST',
+            'street' => '5885 Leeds St',
+            'city' => 'Halifax',
+            'province' => 'NS',
+            'postal_code' => 'B3K 4M2',
+            'ticket_price' => 10.99,
+            'created_at' => Carbon::now(),
+        ]);
+
+        DB::table('events')->insert([
+            'client_id' => 1,
+            'event_title' => 'SO MUCH TENDERNESS screening',
+            'event_description' => 'Screening night of the Documentary Program: "SO MUCH TENDERNESS"',
+            'max_tickets_per_customer' => 2,
+            'date_time' => Carbon::now()->addMonth(),
+            'time_zone' => 'AST',
+            'street' => '5885 Leeds St',
+            'city' => 'Halifax',
+            'province' => 'NS',
+            'postal_code' => 'B3K 4M2',
+            'ticket_price' => 7.99,
+            'created_at' => Carbon::now(),
+        ]);
+
+        DB::table('events')->insert([
+            'client_id' => 1,
+            'event_title' => 'MY NAME IS ANDREA',
+            'event_description' => 'Screening night of the Documentary Program: "MY NAME IS ANDREA"',
+            'max_tickets_per_customer' => 3,
+            'date_time' => Carbon::now()->addDays(6),
+            'time_zone' => 'AST',
+            'street' => '5885 Leeds St',
+            'city' => 'Halifax',
+            'province' => 'NS',
+            'postal_code' => 'B3K 4M2',
+            'ticket_price' => 20.99,
+            'created_at' => Carbon::now(),
+        ]);
+
+        DB::table('events')->insert([
             'client_id' => 2,
             'event_title' => 'Arthur Lloy Exhibition',
             'event_description' => "Arthur was born in Melville Cove on the Northwest Arm in Halifax. He showed a talent for drawing and painting while he was young and later went to study at Saint Mary’s University and the Nova Scotia College of Art and Design in Halifax. While Arthur continued to paint, he worked in the Dockyard in order to support his family. Like so many of the young Canadian artists who came to maturity in the middle years of the 20th century, Arthur was strongly influenced by the members of the Group of Seven, with their emphasis on painting the rugged Canadian landscape en-plein-air, like the French Impressionists.",

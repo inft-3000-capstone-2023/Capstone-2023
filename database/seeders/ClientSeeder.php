@@ -25,6 +25,8 @@ class ClientSeeder extends Seeder
 
             'logo_path' => 'public/images/FIN/logo.png',
             'created_at' => Carbon::now(),
+            'total_number_reviews' => 1,
+            'total_review_rating' => 5,
         ]);
 
         DB::table('clients')->insert([
@@ -35,6 +37,8 @@ class ClientSeeder extends Seeder
 
             'logo_path' => 'public/images/Zwickers/logo.png',
             'created_at' => Carbon::now(),
+            'total_number_reviews' => 1,
+            'total_review_rating' => 1,
         ]);
 
         DB::table('clients')->insert([
@@ -45,6 +49,8 @@ class ClientSeeder extends Seeder
 
             'logo_path' => 'public/images/HalifaxJazzFestival/logo.png',
             'created_at' => Carbon::now(),
+            'total_number_reviews' => 1,
+            'total_review_rating' => 4,
         ]);
     }
 }

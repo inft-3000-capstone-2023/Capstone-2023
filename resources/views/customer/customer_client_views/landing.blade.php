@@ -13,7 +13,7 @@
                         <a type="button" class="btn btn-primary btn-lg form-control">Events</a>
                     </div>
                     <div class="col">
-                        <a href="{{ route('reviews_page', $client) }}" type="button" class="btn btn-secondary btn-lg form-control">Review</a>
+                        <a href="{{ route('reviews_page', $client) }}" type="button" class="btn btn-secondary btn-lg form-control">Reviews</a>
                     </div>
                     <div class="col">
                         <a href="{{ route('bio_page', $client) }}" type="button" class="btn btn-secondary btn-lg form-control">Bio</a>
@@ -56,13 +56,16 @@
                             </td>
                             <td>
                                 <div class="container text-center mt-1 mb-auto">
-                                    <button class="btn btn-primary mt-auto mb-auto">See Tickets</button>
+                                    <button class="btn btn-primary mt-auto mb-auto">View</button>
                                 </div>
                             </td>
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
+            </div>
+            <div class="d-flex justify-content-center">
+                {!! $events->links('vendor.pagination.bootstrap-5') !!}
             </div>
         </div>
     </div>

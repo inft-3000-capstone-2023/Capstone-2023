@@ -13,7 +13,7 @@
                         <a href="{{ route('client_page', $client) }}" type="button" class="btn btn-secondary btn-lg form-control">Events</a>
                     </div>
                     <div class="col">
-                        <a href="{{ route('reviews_page', $client) }}" type="button" class="btn btn-secondary btn-lg form-control">Review</a>
+                        <a href="{{ route('reviews_page', $client) }}" type="button" class="btn btn-secondary btn-lg form-control">Reviews</a>
                     </div>
                     <div class="col">
                         <a type="button" class="btn btn-primary btn-lg form-control">Bio</a>

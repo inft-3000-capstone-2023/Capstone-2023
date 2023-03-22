@@ -8,6 +8,7 @@ use App\Models\Event;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class ClientCustomerController extends Controller
 {
@@ -18,12 +19,12 @@ class ClientCustomerController extends Controller
      */
     public function index()
     {
-        $events = Event::orderBy('event_title')->get();
+        $events = Event::orderBy('date_time', 'desc')->get();
         return view('customer.customer_client_views.landing', compact(['events']));
     }
 
     public function client_page(Client $client){
-        $events = $client->events()->get();
+        $events = $client->events()->orderBy('date_time', 'asc')->paginate(20);
         return view('customer.customer_client_views.landing', compact(['events', 'client']));
     }
 
@@ -32,8 +33,9 @@ class ClientCustomerController extends Controller
     }
 
     public function reviews_page(Client $client){
-        $reviews = $client->reviews()->get();
-        return view('customer.customer_client_views.reviews', compact(['reviews', 'client']));
+        $reviews = $client->reviews()->paginate(5);
+        $total_rating = $client->total_review_rating / $client->total_number_reviews;
+        return view('customer.customer_client_views.reviews', compact(['reviews', 'client', 'total_rating']));
     }
 
     /**
