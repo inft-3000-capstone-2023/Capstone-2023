@@ -42,3 +42,5 @@ Route::get('/tickets/{client}/bio', [App\Http\Controllers\ClientCustomerControll
     'bio_page'])->name('bio_page');
 Route::get('/tickets/{client}/reviews', [App\Http\Controllers\ClientCustomerController::class,
     'reviews_page'])->name('reviews_page');
+Route::get('/tickets/{client}/{event}', [App\Http\Controllers\ClientCustomerController::class,
+    'view_event_page'])->name('view_event_page');

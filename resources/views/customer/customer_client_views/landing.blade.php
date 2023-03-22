@@ -56,7 +56,8 @@
                             </td>
                             <td>
                                 <div class="container text-center mt-1 mb-auto">
-                                    <button class="btn btn-primary mt-auto mb-auto">View</button>
+                                    <a href="{{ route('view_event_page', [$client, $event]) }}" type="button"
+                                            class="btn btn-primary mt-auto mb-auto">View</a>
                                 </div>
                             </td>
                         </tr>

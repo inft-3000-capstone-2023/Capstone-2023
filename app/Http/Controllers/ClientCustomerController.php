@@ -38,6 +38,10 @@ class ClientCustomerController extends Controller
         return view('customer.customer_client_views.reviews', compact(['reviews', 'client', 'total_rating']));
     }
 
+    public function view_event_page(Client $client, Event $event){
+        return view('customer.customer_client_views.view_event', compact(['client', 'event']));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
