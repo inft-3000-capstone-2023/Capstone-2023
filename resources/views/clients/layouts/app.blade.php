@@ -12,12 +12,10 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-    <link href="{{ URL::asset('css/layout_style.css') }}" rel="stylesheet" />
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
-
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
@@ -75,58 +73,10 @@
         </nav>
 
         <main class="py-4">
-            <div>
-                {{--                            <img src="/ClientNavIcons/HomeIcon.png" alt="..." class="img-thumbnail">--}}
-                <ul class="nav flex-column" id="first_nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('clients.index')}}"><img id="navImg" src="/client_nav_icons/home1.png" alt="image"  class="img-thumbnail"></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('events.index')}}"><img id="navImg" src="/client_nav_icons/calendar.png" alt="image" class="img-thumbnail"></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><img id="navImg" src="/client_nav_icons/financial.png" alt="image" class="img-thumbnail"></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><img id="navImg" src="/client_nav_icons/organization.png" alt="image" class="img-thumbnail"></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link " href="#"><img id="navImg" src="/client_nav_icons/help.png" alt="image" class="img-thumbnail"></a>
-                    </li>
-                </ul>
-            </div>
-            <div>
-                {{--                            <img src="/ClientNavIcons/HomeIcon.png" alt="..." class="img-thumbnail">--}}
-                <ul class="nav flex-column" id="second_nav">
-                    <li class="nav-item">
-                        Current Event
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Basic Info</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Details</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Tickets</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Publish</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Customize</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Attendee</a>
-                    </li>
-
-                </ul>
-            </div>
             @yield('content')
         </main>
+    </div>
+    <div>
 
     </div>
 </body>
