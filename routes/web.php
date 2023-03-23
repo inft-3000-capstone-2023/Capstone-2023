@@ -24,31 +24,19 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/admin',function(){
-    return redirect(route('list_clients'));
-})->name('admin');
+    return redirect(route('admin.clients.index'));
+});
 //======================================================================================================================
 
-Route::resource('admin/clients',App\Http\Controllers\ClientController::class)
-        ->name('index','list_clients')
-        ->name('create','create_client')
-        ->name('store','store_client')
-        ->name('show','show_client')
-        ->name('edit','edit_client')
-        ->name('update','update_client')
-        ->name('destroy','destroy_client')
-    ->middleware(['auth','check.user.admin']);
-
-Route::resource('admin/users',App\Http\Controllers\AdminController::class)
-        ->name('index','list_users')
-        ->name('create','create_user')
-        ->name('store','store_user')
-        ->name('show','show_user')
-        ->name('edit','edit_user')
-        ->name('update','update_user')
-        ->name('destroy','destroy_user')
-    ->middleware(['auth','check.user.admin']);
-
-//Route::resource('admins', App\Http\Controllers\AdminController::class);
+Route::group(
+    [
+        'prefix'=>'/admin',
+        'as' =>'admin.'
+    ], function () {
+        Route::resource('clients', App\Http\Controllers\ClientController::class);
+        Route::resource('users', App\Http\Controllers\AdminController::class);
+    }
+)->middleware(['auth','check.user.admin']);
 
 Route::resource('clients', App\Http\Controllers\ClientController::class);
 

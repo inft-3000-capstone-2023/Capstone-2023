@@ -19,7 +19,7 @@
                             </div>
                         @endif
 
-                        <form method="POST" action="{{ route('update_client', $client) }}">
+                        <form method="POST" action="{{ route('admin.clients.update', $client) }}">
                             @csrf
                             @method('PUT')
                             <div class="mb-3">
@@ -44,7 +44,7 @@
                                 @enderror
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
-                            <a href="{{ route('list_clients') }}" class="btn btn-outline-danger">Cancel</a>
+                            <a href="{{ route('admin.clients.index') }}" class="btn btn-outline-danger">Cancel</a>
                         </form>
                     </div>
                 </div>

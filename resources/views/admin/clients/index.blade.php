@@ -36,13 +36,13 @@
                                 <td>{{ $client->created_at }}</td>
 
                                 <td>
-                                    <form method="POST" action="{{ route('destroy_client', $client->id) }}">
+                                    <form method="POST" action="{{ route('admin.clients.destroy', $client->id) }}">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">Delete</button>
                                     </form>
                                 </td>
-                                <td><a href="{{ route('show_client', [$client->id]) }}" class="btn btn-outline-secondary">Details</a></td>
+                                <td><a href="{{ route('admin.clients.show', [$client->id]) }}" class="btn btn-outline-secondary">Details</a></td>
                             </tr>
                         @endforeach
                         </tbody>

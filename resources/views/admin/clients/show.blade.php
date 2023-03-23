@@ -55,13 +55,13 @@
                                     <td>{{ $event->date_time }}</td>
 
                                     <td>
-                                        <form method="POST" action="{{ route('events.destroy', $event->id) }}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                        </form>
-                                    </td>
-                                    <td><a href="{{ route('events.show', [$event->id]) }}" class="btn btn-outline-secondary">Details</a></td>
+{{--                                        <form method="POST" action="{{ route('events.destroy', $event->id) }}">--}}
+{{--                                            @csrf--}}
+{{--                                            @method('DELETE')--}}
+{{--                                            <button type="submit" class="btn btn-danger">Delete</button>--}}
+{{--                                        </form>--}}
+{{--                                    </td>--}}
+{{--                                    <td><a href="{{ route('events.show', [$event->id]) }}" class="btn btn-outline-secondary">Details</a></td>--}}
                                 </tr>
                             @endforeach
                             </tbody>
@@ -99,7 +99,7 @@
                             </tbody>
                         </table>
 
-                        <a href="{{ route('list_clients') }}" class="btn btn-outline-danger">Back</a>
+                        <a href="{{ route('admin.clients.index') }}" class="btn btn-outline-danger">Back</a>
 
                     </div>
                 </div>

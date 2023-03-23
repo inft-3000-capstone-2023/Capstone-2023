@@ -19,7 +19,7 @@
                             </div>
                         @endif
 
-                        <form method="POST" action="{{ route('store_client') }}">
+                        <form method="POST" action="{{ route('admin.clients.store') }}">
                             @csrf
                             <div class="mb-3">
                                 <label for="company_name">Company Name</label>
@@ -43,7 +43,7 @@
                                 @enderror
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
-                            <a href="{{ route('list_clients') }}" class="btn btn-outline-danger">Cancel</a>
+                            <a href="{{ route('admin.clients.index') }}" class="btn btn-outline-danger">Cancel</a>
                         </form>
                     </div>
                 </div>

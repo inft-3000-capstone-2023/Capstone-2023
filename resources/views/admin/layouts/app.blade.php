@@ -50,10 +50,10 @@
                             @endif
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('list_users') }}">Admin Users</a>
+                                <a class="nav-link" href="{{ route('admin.users.index') }}">Admin Users</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('list_clients') }}">Clients</a>
+                                <a class="nav-link" href="{{ route('admin.clients.index') }}">Clients</a>
                             </li>
 
                             <li class="nav-item dropdown">
