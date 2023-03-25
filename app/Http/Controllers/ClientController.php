@@ -118,12 +118,15 @@ class ClientController extends Controller
     public function destroy(int $id)
     {
         // TODO - Jay - Fully delete all things connected to client
-        //  reviews
+        //  reviews, tokens, client_users
         //  client_customers (Note - don't delete customer records themselves)
-        //  client_users
-        //  (I guess don't delete event records, or transaction records)
+        //  (I guess don't delete event records, or transaction records, need to confirm)
 
         $client = Client::find($id);
+        $reviews = $client->reviews()->get();
+        $tokens = $client->tokens()->get();
+        $clientUsers = $client->clientUsers()->get();
+
         $client->delete();
 
         return redirect()->back()->with('status', 'Client has been deleted');
