@@ -44,21 +44,25 @@ Route::resource('events', App\Http\Controllers\EventController::class);
 
 Route::resource('customers', App\Http\Controllers\ClientCustomerController::class);
 
-Route::resource('events',\App\Http\Controllers\EventController::class);
-
-Route::get('events', 'EventController@index')->name('events.index');
-
-Route::get('events/createS1', 'EventController@createS1')->name('events.createS1');
-Route::post('events/createS1', 'EventController@postCreateS1')->name('events.createS1.post');
-
-Route::get('events/createS2', 'EventController@createS2')->name('events.createS2');
-Route::post('events/createS2', 'EventController@postCreateS2')->name('events.createS2.post');
-
-Route::get('events/createS3', 'EventController@createS3')->name('events.createS3');
-Route::post('events/createS3', 'EventController@postcreateS3')->name('events.createS3.post');
-
-Route::get('events/createS4', 'EventController@createS4')->name('events.createS4');
-Route::post('events/createS4', 'EventController@postcreateS4')->name('events.createS4.post');
+//routes for client events index and creation page
+Route::get('/client/{client}/events', [App\Http\Controllers\EventController::class,
+    'client_events'])->name('client_events');
+Route::get('/client/{client}/events/createS1', [App\Http\Controllers\EventController::class,
+    'createS1'])->name('createS1');
+Route::get('/client/{client}/events/createS2', [App\Http\Controllers\EventController::class,
+    'createS2'])->name('createS2');
+Route::get('/client/{client}/events/createS3', [App\Http\Controllers\EventController::class,
+    'createS3'])->name('createS3');
+Route::get('/client/{client}/events/createS4', [App\Http\Controllers\EventController::class,
+    'createS4'])->name('createS4');
+Route::post('/client/{client}/events/createS1', [App\Http\Controllers\EventController::class,
+    'postcreateS1'])->name('postcreateS1');
+Route::post('/client/{client}/events/createS2', [App\Http\Controllers\EventController::class,
+    'postcreateS2'])->name('postcreateS2');
+Route::post('/client/{client}/events/createS3', [App\Http\Controllers\EventController::class,
+    'postcreateS3'])->name('postcreateS3');
+Route::put('/client/{client}/events/createS4', [App\Http\Controllers\EventController::class,
+    'postcreateS4'])->name('postcreateS4');
 
 
 

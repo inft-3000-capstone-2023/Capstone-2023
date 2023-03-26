@@ -11,16 +11,16 @@
                     <div class="container col-10 pt-sm-2">
                     <ul class="nav nav-pills nav-fill">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('events.createS1')}}">Basic Info</a>
+                            <a class="nav-link" href="{{route('createS1', $client)}}">Basic Info</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{route('events.createS2')}}">Details</a>
+                            <a class="nav-link active" aria-current="page" href="{{route('createS2', $client)}}">Details</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('events.createS3')}}">Ticket</a>
+                            <a class="nav-link" href="{{route('createS3', $client)}}">Ticket</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('events.createS4')}}">Publish</a>
+                            <a class="nav-link" href="{{route('createS4', $client)}}">Publish</a>
                         </li>
                     </ul>
                     </div>
@@ -38,21 +38,36 @@
                             </div>
                         @endif
 
-                    <form class="row g-3" method="post" action="{{route('events.createS2.post')}}">
+                    <form class="row g-3" method="post" action="{{route('postcreateS2', $client)}}">
                         @csrf
                         <div class="col-12">
                             <label for="path" class="form-label">Main Event Image</label>
-                            <input class="form-control" type="file" id="path" value="{{ $event->path ?? '' }}">
+                            <input class="form-control @error('path') is-invalid @enderror" name="path" type="file" id="path" value="{{ $event->path ?? '' }}">
+                            @error('path')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{$message}}</strong>
+                                </span>
+                            @enderror
                         </div>
 
                         <div class="col-12">
                             <label for="alt_text" class="form-label">Summary</label>
-                            <textarea class="form-control" id="alt_text" rows="3" value="{{ $event->alt_text ?? '' }}"></textarea>
+                            <textarea class="form-control @error('alt_text') is-invalid @enderror" name="alt_text" id="alt_text" rows="3" value="{{ $event->alt_text ?? '' }}"></textarea>
+                            @error('alt_text')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{$message}}</strong>
+                                </span>
+                            @enderror
                         </div>
 
                         <div class="col-12">
                             <label for="description" class="form-label">More description</label>
-                            <textarea class="form-control" id="description" rows="3" value="{{ $event->description ?? '' }}"></textarea>
+                            <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description" rows="3" value="{{ $event->description ?? '' }}"></textarea>
+                            @error('description')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{$message}}</strong>
+                                </span>
+                            @enderror
                         </div>
 
                         <div class="col-12">
