@@ -19,13 +19,13 @@
                             </div>
                         @endif
 
-                        <table class="table">
+                        <table class="table table-dark table-striped">
                         <thead>
                         <tr>
-                            <th>Client id</th>
-                            <th>Client Name</th>
-                            <th>Created At</th>
-                            <th colspan="2">Actions</th>
+                            <th scope="col">Client id</th>
+                            <th scope="col">Client Name</th>
+                            <th scope="col">Created At</th>
+                            <th scope="col" colspan="2">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -42,7 +42,7 @@
                                         <button type="submit" class="btn btn-danger">Delete</button>
                                     </form>
                                 </td>
-                                <td><a href="{{ route('admin.clients.show', [$client->id]) }}" class="btn btn-outline-secondary">Details</a></td>
+                                <td><a href="{{ route('admin.clients.show', [$client->id]) }}" class="btn btn-secondary">Details</a></td>
                             </tr>
                         @endforeach
                         </tbody>

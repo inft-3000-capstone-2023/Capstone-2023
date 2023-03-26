@@ -38,13 +38,13 @@
                         </div>
 
                         <h3>Client Events</h3>
-                        <table class="table">
+                        <table class="table table-dark table-striped">
                             <thead>
                             <tr>
-                                <th>Event id</th>
-                                <th>Event Title</th>
-                                <th>Date</th>
-                                <th colspan="2">Actions</th>
+                                <th scope="col">Event id</th>
+                                <th scope="col">Event Title</th>
+                                <th scope="col">Date</th>
+                                <th  scope="col" colspan="2">Actions</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -61,21 +61,21 @@
 {{--                                            <button type="submit" class="btn btn-danger">Delete</button>--}}
 {{--                                        </form>--}}
 {{--                                    </td>--}}
-{{--                                    <td><a href="{{ route('events.show', [$event->id]) }}" class="btn btn-outline-secondary">Details</a></td>--}}
+{{--                                    <td><a href="{{ route('events.show', [$event->id]) }}" class="btn btn-secondary">Details</a></td>--}}
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
 
                         <h3>Client Users</h3>
-                        <table class="table">
+                        <table class="table table-dark table-striped">
                             <thead>
                             <tr>
-                                <th>User id</th>
-                                <th>User Name</th>
-                                <th>User Email</th>
-                                <th>Date Created</th>
-                                <th colspan="2">Actions</th>
+                                <th scope="col">User id</th>
+                                <th scope="col">User Name</th>
+                                <th scope="col">User Email</th>
+                                <th scope="col">Date Created</th>
+                                <th scope="col" colspan="2">Actions</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -86,20 +86,20 @@
                                     <td>&nbsp;</td><!-- TODO $client_user->email -->
                                     <td>{{ $client_user->created_at }}</td>
 
-{{--                                    <td>--}}
+                                    <td>
 {{--                                        <form method="POST" action="{{ route('clientuser.destroy', $client_user->id) }}">--}}
 {{--                                            @csrf--}}
 {{--                                            @method('DELETE')--}}
 {{--                                            <button type="submit" class="btn btn-danger">Delete</button>--}}
 {{--                                        </form>--}}
-{{--                                    </td>--}}
-{{--                                    <td><a href="{{ route('clientuser.show', [$client_user->id]) }}" class="btn btn-outline-secondary">Details</a></td>--}}
+                                    </td>
+{{--                                    <td><a href="{{ route('clientuser.show', [$client_user->id]) }}" class="btn btn-secondary">Details</a></td>--}}
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
 
-                        <a href="{{ route('admin.clients.index') }}" class="btn btn-outline-danger">Back</a>
+                        <a href="{{ route('admin.clients.index') }}" class="btn btn-danger">Back</a>
 
                     </div>
                 </div>
