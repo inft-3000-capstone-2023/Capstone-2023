@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,17 +22,24 @@ class EventController extends Controller
     public function index()
     {
         //
+    }
+
+    public function client_events(Client $client) {
         $bookings = array();
-        $events = Event::with('clients')->with('images')->get();
+
+        $events = $client->events;
+
         foreach ($events as $event) {
             $bookings[] = [
-                'event_title' => $event->title,
-                'date_time' => $event->date,
-                'time_zone' => $event->time,
+                'title' => $event->event_title,
+                'start' => $event->date_time,
+                'allDay' => true
+                // If you have an 'end_time' property, add it here
+                // 'end' => $event->end_time
             ];
         }
 
-        return view('events.index', compact(['bookings'=>$bookings]));
+        return view('client.pages.event.index', ['bookings'=>$bookings, 'client' => $client]);
     }
 
     /**
@@ -38,9 +50,6 @@ class EventController extends Controller
     public function create()
     {
         //
-        $clients = Client::orderBy('id')->get();
-        $images = Image::orderBy('id')->get();
-        return view('events.createS1',compact(['clients','images']));
 
     }
 
@@ -105,11 +114,10 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createS1(Request $request)
+    public function createS1(Request $request, Client $client)
     {
         $event = $request->session()->get('event');
-
-        return view('events.createS1',compact('event'));
+        return view('client.pages.event.createS1',compact(['event','client']));
     }
 
     /**
@@ -118,10 +126,11 @@ class EventController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function postcreateS1(Request $request)
+    public function postcreateS1(Request $request, Client $client)
     {
         $validatedData = $request->validate([
             'event_title' => 'required|unique:events',
+            'event_description'=>'required',
             'street' => 'required',
             'city' => 'required',
             'province' => 'required',
@@ -140,7 +149,7 @@ class EventController extends Controller
             $request->session()->put('event', $event);
         }
 
-        return redirect()->route('events.createS2');
+        return redirect()->route('createS2',compact(['event','client']));
     }
 
     /**
@@ -148,12 +157,12 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createS2(Request $request)
+    public function createS2(Request $request, Client $client)
     {
         $event = $request->session()->get('event');
-        $images = Image::orderBy('name')->get();
+        $images = Image::orderBy('id')->get();
 
-        return view('events.createS2',compact(['event','images']));
+        return view('client.pages.event.createS2',compact(['event','images','client']));
     }
 
     /**
@@ -161,7 +170,7 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function postCreateS2(Request $request)
+    public function postcreateS2(Request $request, Client $client, Image $image)
     {
         $validatedData = $request->validate([
             'path' => 'required',
@@ -175,7 +184,7 @@ class EventController extends Controller
         $event->fill($validatedData)->Images()->sync($request->image_ids);;
         $request->session()->put('event', $event);
 
-        return redirect()->route('events.createS3');
+        return redirect()->route('createS3',compact(['event','client','image']));
     }
 
     /**
@@ -183,11 +192,11 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createS3(Request $request)
+    public function createS3(Request $request, Client $client)
     {
         $event = $request->session()->get('event');
 
-        return view('events.createS3',compact('event'));
+        return view('client.pages.event.createS3',compact(['event','client']));
     }
 
     /**
@@ -195,7 +204,7 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function postCreateS3(Request $request)
+    public function postcreateS3(Request $request, Client $client)
     {
         $validatedData = $request->validate([
             'max_tickets_per_customer' => 'required',
@@ -206,7 +215,7 @@ class EventController extends Controller
         $event->fill($validatedData);
         $request->session()->put('event', $event);
 
-        return redirect()->route('events.createS4',compact('event'));
+        return redirect()->route('createS4',compact(['event','client']));
     }
 
     /**
@@ -214,11 +223,12 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createS4(Request $request)
+    public function createS4(Request $request, Client $client)
     {
         $event = $request->session()->get('event');
+        $event->client_id = auth()->id();  // auth()->id()
 
-        return view('events.createS4',compact('event'));
+        return view('client.pages.event.createS4',compact(['event','client']));
     }
 
     /**
@@ -226,15 +236,14 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function postCreateS4(Request $request)
+    public function postcreateS4(Request $request, Client $client)
     {
         $event = $request->session()->get('event');
+        $client = $event->client;
         $event->save();
         $request->session()->forget('event');
 
-        return redirect()->route('events.index');
+        return redirect()->route('client_events', compact(['event','client']))->with('status','New event has been created!');
     }
-
-
 
 }
