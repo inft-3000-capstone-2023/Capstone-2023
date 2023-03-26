@@ -22,16 +22,27 @@ Auth::routes();
 
 //landing page routes ==================================================================================================
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/admin',function(){
+    return redirect(route('admin.clients.index'));
+});
 //======================================================================================================================
 
-Route::resource('admins', App\Http\Controllers\AdminController::class);
+Route::group(
+    [
+        'prefix'=>'/admin',
+        'as' =>'admin.'
+    ], function () {
+        Route::resource('clients', App\Http\Controllers\ClientController::class);
+        Route::resource('users', App\Http\Controllers\AdminController::class);
+    }
+)->middleware(['auth','check.user.admin']);
 
 Route::resource('clients', App\Http\Controllers\ClientController::class);
 
-Route::resource('customers', App\Http\Controllers\ClientCustomerController::class);
+Route::resource('events', App\Http\Controllers\EventController::class);
 
-Route::resource('admin', App\Http\Controllers\ClientController::class)->middleware(['auth', 'check.user.admin']);
-// TODO Will need to add middleware here to prevent unauthorized access
+Route::resource('customers', App\Http\Controllers\ClientCustomerController::class);
 
 Route::resource('events',\App\Http\Controllers\EventController::class);
 

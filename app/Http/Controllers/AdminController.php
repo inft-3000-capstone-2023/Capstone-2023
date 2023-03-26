@@ -15,6 +15,8 @@ class AdminController extends Controller
     public function index()
     {
         //
+        $users = Admin::orderBy('name', 'ASC')->get();
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -25,6 +27,7 @@ class AdminController extends Controller
     public function create()
     {
         //
+        return view('admin.users.create');
     }
 
     /**
@@ -36,50 +39,81 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'name' => ['required'],
+            'email' => ['required'],
+        ]);
+
+        Admin::create([
+            'name' => $request->name,
+            'email' => $request->email,
+        ]);
+
+        return redirect(route('list_users'))->with('status', 'Admin User created');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Admin  $admin
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Admin $admin)
+    public function show(int $id)
     {
         //
+        $user = Admin::find($id);
+        return redirect(route('list_users'), compact('user'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Admin  $admin
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Admin $admin)
+    public function edit(int $id)
     {
         //
+        $user = Admin::find($id);
+        return redirect(route('edit_user'), compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Admin  $admin
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Admin $admin)
+    public function update(Request $request, int $id)
     {
         //
+        $user = Admin::find($id);
+
+        $request->validate([
+            'name' => ['required'],
+            'email' => ['required'],
+        ]);
+
+        $user->company_name = $request->name;
+        $user->description = $request->email;
+        $user->save();
+
+        return redirect(route('list_users'))->with('status', 'Admin User has been updated');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Admin  $admin
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Admin $admin)
+    public function destroy(int $id)
     {
         //
+        $user = Admin::find($id);
+        $user->delete();
+
+        return redirect(route('list_users'))->with('status', 'Admin User has been deleted');
     }
 }
