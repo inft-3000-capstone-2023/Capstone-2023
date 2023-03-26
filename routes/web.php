@@ -44,4 +44,22 @@ Route::resource('events', App\Http\Controllers\EventController::class);
 
 Route::resource('customers', App\Http\Controllers\ClientCustomerController::class);
 
-Route::view('/overview','Client_Landing/client_home');
+Route::resource('events',\App\Http\Controllers\EventController::class);
+
+Route::get('events', 'EventController@index')->name('events.index');
+
+Route::get('events/createS1', 'EventController@createS1')->name('events.createS1');
+Route::post('events/createS1', 'EventController@postCreateS1')->name('events.createS1.post');
+
+Route::get('events/createS2', 'EventController@createS2')->name('events.createS2');
+Route::post('events/createS2', 'EventController@postCreateS2')->name('events.createS2.post');
+
+Route::get('events/createS3', 'EventController@createS3')->name('events.createS3');
+Route::post('events/createS3', 'EventController@postcreateS3')->name('events.createS3.post');
+
+Route::get('events/createS4', 'EventController@createS4')->name('events.createS4');
+Route::post('events/createS4', 'EventController@postcreateS4')->name('events.createS4.post');
+
+
+
+
