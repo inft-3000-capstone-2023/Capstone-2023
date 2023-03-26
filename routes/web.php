@@ -22,16 +22,47 @@ Auth::routes();
 //test comment
 //landing page routes ==================================================================================================
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/admin',function(){
+    return redirect(route('admin.clients.index'));
+});
 //======================================================================================================================
 
-Route::resource('admins', App\Http\Controllers\AdminController::class);
+Route::group(
+    [
+        'prefix'=>'/admin',
+        'as' =>'admin.'
+    ], function () {
+        Route::resource('clients', App\Http\Controllers\ClientController::class);
+        Route::resource('users', App\Http\Controllers\AdminController::class);
+    }
+)->middleware(['auth','check.user.admin']);
 
 Route::resource('clients', App\Http\Controllers\ClientController::class);
 
+Route::resource('events', App\Http\Controllers\EventController::class);
+
 Route::resource('customers', App\Http\Controllers\ClientCustomerController::class);
 
-Route::resource('admin', App\Http\Controllers\ClientController::class)->middleware(['auth', 'check.user.admin']);
-// TODO Will need to add middleware here to prevent unauthorized access
+//routes for client events index and creation page
+Route::get('/client/{client}/events', [App\Http\Controllers\EventController::class,
+    'client_events'])->name('client_events');
+Route::get('/client/{client}/events/createS1', [App\Http\Controllers\EventController::class,
+    'createS1'])->name('createS1');
+Route::get('/client/{client}/events/createS2', [App\Http\Controllers\EventController::class,
+    'createS2'])->name('createS2');
+Route::get('/client/{client}/events/createS3', [App\Http\Controllers\EventController::class,
+    'createS3'])->name('createS3');
+Route::get('/client/{client}/events/createS4', [App\Http\Controllers\EventController::class,
+    'createS4'])->name('createS4');
+Route::post('/client/{client}/events/createS1', [App\Http\Controllers\EventController::class,
+    'postcreateS1'])->name('postcreateS1');
+Route::post('/client/{client}/events/createS2', [App\Http\Controllers\EventController::class,
+    'postcreateS2'])->name('postcreateS2');
+Route::post('/client/{client}/events/createS3', [App\Http\Controllers\EventController::class,
+    'postcreateS3'])->name('postcreateS3');
+Route::put('/client/{client}/events/createS4', [App\Http\Controllers\EventController::class,
+    'postcreateS4'])->name('postcreateS4');
 
 Route::view('/overview','Client_Landing/client_home');
 
