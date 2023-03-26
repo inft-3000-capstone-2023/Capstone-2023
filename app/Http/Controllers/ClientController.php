@@ -131,4 +131,5 @@ class ClientController extends Controller
 
         return redirect()->back()->with('status', 'Client has been deleted');
     }
+
 }
