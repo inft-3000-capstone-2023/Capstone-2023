@@ -42,9 +42,9 @@ class LoginController extends Controller
     //redirecting to user type specific pages
     public function redirectTo() {
         if (Auth::user()->type == 0){ //type 0 is admin
-            return route('admin.index');
+            return route('admin.clients.index');
         } else if (Auth::user()->type == 1) { //type 1 is client user
-            return route('home');
+            return route('client.dashboard');
         } else{ //a customer is logged in, send them to their customer homepage
             return route('home');
         }

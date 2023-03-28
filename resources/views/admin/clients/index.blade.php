@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 
 @section('content')
     <div class="container">
@@ -19,15 +19,13 @@
                             </div>
                         @endif
 
-                        <a href="{{ route('admin.create') }}" class="btn btn-outline-primary">Create New Client</a>
-
-                        <table class="table">
+                        <table class="table table-dark table-striped">
                         <thead>
                         <tr>
-                            <th>Client id</th>
-                            <th>Client Name</th>
-                            <th>Created At</th>
-                            <th colspan="3">Actions</th>
+                            <th scope="col">Client id</th>
+                            <th scope="col">Client Name</th>
+                            <th scope="col">Created At</th>
+                            <th scope="col" colspan="2">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -37,15 +35,14 @@
                                 <td>{{ $client->company_name }}</td>
                                 <td>{{ $client->created_at }}</td>
 
-                                <td> <a href="{{ route('admin.edit', [$client->id]) }}" class="btn btn-warning">Edit</a></td>
                                 <td>
-                                    <form method="POST" action="{{ route('admin.destroy', $client->id) }}">
+                                    <form method="POST" action="{{ route('admin.clients.destroy', $client->id) }}">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">Delete</button>
                                     </form>
                                 </td>
-                                <td><a href="{{ route('admin.show', [$client->id]) }}" class="btn btn-outline-secondary">Details</a></td>
+                                <td><a href="{{ route('admin.clients.show', [$client->id]) }}" class="btn btn-secondary">Details</a></td>
                             </tr>
                         @endforeach
                         </tbody>

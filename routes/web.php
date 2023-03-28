@@ -19,19 +19,45 @@ Route::get('/', function () {
 
 
 Auth::routes();
-
+//test comment
 //landing page routes ==================================================================================================
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/admin',function(){
+    return redirect(route('admin.clients.index'));
+});
 //======================================================================================================================
 
-Route::resource('admins', App\Http\Controllers\AdminController::class);
+Route::group(
+    [
+        'prefix'=>'/admin',
+        'as' =>'admin.'
+    ], function () {
+        Route::resource('clients', App\Http\Controllers\ClientController::class);
+        Route::resource('users', App\Http\Controllers\AdminController::class);
+    }
+)->middleware(['auth','check.user.admin']);
 
-Route::resource('clients', App\Http\Controllers\ClientController::class);
+Route::group(
+    [
+        'prefix'=>'/client/{client}',
+        'as'=>'client.'
+    ], function() {
+        Route::get('/dashboard', [App\Http\Controllers\ClientController::class, 'display_dashboard'])->name('dashboard');
 
-Route::resource('customers', App\Http\Controllers\ClientCustomerController::class);
+        Route::resource('customers', App\Http\Controllers\ClientCustomerController::class);
 
-Route::resource('admin', App\Http\Controllers\ClientController::class)->middleware(['auth', 'check.user.admin']);
-// TODO Will need to add middleware here to prevent unauthorized access
+        Route::get('/events/', [App\Http\Controllers\EventController::class, 'client_events'])->name('client_events');
+        Route::get('/events/createS1', [App\Http\Controllers\EventController::class, 'createS1'])->name('createS1');
+        Route::get('/events/createS2', [App\Http\Controllers\EventController::class, 'createS2'])->name('createS2');
+        Route::get('/events/createS3', [App\Http\Controllers\EventController::class, 'createS3'])->name('createS3');
+        Route::get('/events/createS4', [App\Http\Controllers\EventController::class, 'createS4'])->name('createS4');
+        Route::post('/events/createS1', [App\Http\Controllers\EventController::class, 'postcreateS1'])->name('postcreateS1');
+        Route::post('/events/createS2', [App\Http\Controllers\EventController::class, 'postcreateS2'])->name('postcreateS2');
+        Route::post('/events/createS3', [App\Http\Controllers\EventController::class, 'postcreateS3'])->name('postcreateS3');
+        Route::put('/events/createS4', [App\Http\Controllers\EventController::class, 'postcreateS4'])->name('postcreateS4');
+    }
+); // TODO Add Client Middleware Here (Jay)
 
 //routes for client events index and creation page
 Route::prefix('/client/{client}/events')->group(function () {
@@ -46,7 +72,18 @@ Route::prefix('/client/{client}/events')->group(function () {
     Route::put('/createS4', [App\Http\Controllers\EventController::class, 'postcreateS4'])->name('postcreateS4');
 });
 
+Route::resource('events', App\Http\Controllers\EventController::class);
 
+Route::resource('customers', App\Http\Controllers\ClientCustomerController::class);
 
+Route::view('/overview','Client_Landing/client_home');
 
-
+//routes for the customer viewing the client pages
+Route::get('/tickets/{client}', [App\Http\Controllers\ClientCustomerController::class,
+    'client_page'])->name('client_page');
+Route::get('/tickets/{client}/bio', [App\Http\Controllers\ClientCustomerController::class,
+    'bio_page'])->name('bio_page');
+Route::get('/tickets/{client}/reviews', [App\Http\Controllers\ClientCustomerController::class,
+    'reviews_page'])->name('reviews_page');
+Route::get('/tickets/{client}/{event}', [App\Http\Controllers\ClientCustomerController::class,
+    'view_event_page'])->name('view_event_page');
