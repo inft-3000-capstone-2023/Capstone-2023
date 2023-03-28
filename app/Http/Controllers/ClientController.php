@@ -132,4 +132,15 @@ class ClientController extends Controller
         return redirect()->back()->with('status', 'Client has been deleted');
     }
 
+    /**
+     * Direct Client User to Client Dashboard
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function display_dashboard(int $id)
+    {
+        $client = Client::find($id);
+        return view('client.pages.dashboard', compact('client'));
+    }
 }
