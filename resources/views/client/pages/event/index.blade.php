@@ -26,7 +26,7 @@
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                     <li class="nav-item">
-                                        <a class="btn btn-outline-primary nav-link" href="{{route('createS1', $client)}}">Create new event</a>
+                                        <a class="btn btn-outline-primary nav-link" href="{{route('client.createS1',$client)}}">Create new event</a>
                                     </li>
                                 </ul>
                                 <form class="d-flex" role="search">

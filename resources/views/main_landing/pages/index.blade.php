@@ -22,7 +22,7 @@
                         <div class="home-hero">
                             <span class="home-text">WELCOME TO NETS</span>
                             <h1 class="home-text01">Create your event today..</h1>
-                            <button class="home-button button">Get Started</button>
+                            <button href="{{route('login')}}" class="home-button button">Get Started</button>
                         </div>
                         <div class="home-banner">
                             <h1 class="home-text02">Why NETS?</h1>

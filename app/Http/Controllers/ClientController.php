@@ -138,9 +138,32 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function display_dashboard(int $id)
+    public function display_dashboard(Client $client)
     {
-        $client = Client::find($id);
         return view('client.pages.dashboard', compact('client'));
+    }
+
+    /*
+     * for client organization info profile page
+     *
+     */
+
+    public function client_organizer(Client $client) {
+
+        return view('client.pages.info.organizer',compact('client'));
+    }
+
+    public function edit_profile(Client $client) {
+
+        return view('client.client_organizer', compact('client'));
+    }
+    public function update_profile(Request $request, Client $client)
+    {
+        $client->company_name = $request->input('company_name');
+        $client->description = $request->input('description');
+        $client->logo_path = $request->input('logo_path');
+        $client->save();
+
+        return redirect()->route('client.client_organizer', $client->id)->with('status','Organizer profile has been updated!');
     }
 }

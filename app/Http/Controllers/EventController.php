@@ -149,7 +149,7 @@ class EventController extends Controller
             $request->session()->put('event', $event);
         }
 
-        return redirect()->route('createS2',compact(['event','client']));
+        return redirect()->route('client.createS2',compact(['event','client']));
     }
 
     /**
@@ -184,7 +184,7 @@ class EventController extends Controller
         $event->fill($validatedData)->Images()->sync($request->image_ids);;
         $request->session()->put('event', $event);
 
-        return redirect()->route('createS3',compact(['event','client','image']));
+        return redirect()->route('client.createS3',compact(['event','client','image']));
     }
 
     /**
@@ -215,7 +215,7 @@ class EventController extends Controller
         $event->fill($validatedData);
         $request->session()->put('event', $event);
 
-        return redirect()->route('createS4',compact(['event','client']));
+        return redirect()->route('client.createS4',compact(['event','client']));
     }
 
     /**
@@ -243,7 +243,7 @@ class EventController extends Controller
         $event->save();
         $request->session()->forget('event');
 
-        return redirect()->route('client_events', compact(['event','client']))->with('status','New event has been created!');
+        return redirect()->route('client.client_events', compact(['event','client']))->with('status','New event has been created!');
     }
 
 }
