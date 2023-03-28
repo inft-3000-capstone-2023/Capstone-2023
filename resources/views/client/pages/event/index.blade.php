@@ -11,7 +11,11 @@
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
 
                 <div class="container-fluid">
-
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
                     <h1>Event</h1>
 
                     <nav class="navbar navbar-expand-lg bg-body-tertiary">
