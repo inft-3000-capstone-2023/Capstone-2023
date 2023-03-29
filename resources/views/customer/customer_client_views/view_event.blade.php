@@ -11,14 +11,15 @@
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-4 mt-5">
-                <div class="row p-3">
-                    <img class="home-hero-img" src="{{URL::asset('img/default/company_picture.png')}}" alt="Company Image">
-                </div>
+    <div class="container-fluid">
+        <div class="row mt-5">
+            <div class="col-12 text-center">
+                <img class="img-fluid" src="{{URL::asset('img/default/company_picture.png')}}" alt="Company Image">
             </div>
-            <div class="col-4 mt-5">
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-1"></div>
+            <div class="col-6 mt-5 p-5">
                 <div class="row">
                     <h4>About This Event</h4>
                 </div>
@@ -48,42 +49,42 @@
                     <h5>{{ $event->street }}, {{ $event->city }}, {{ $event->province }}</h5>
                 </div>
             </div>
-            <div class="col-4 mt-5">
+            <div class="col-4 mt-5 p-5">
                 <div class="container-fluid card">
+                    <div class="m-2">
                     <div class="row align-items-center mt-1">
                         <div class="col-6">
                             <h5>Admission</h5>
                         </div>
-                        <div class="col-2 p-0">
-                            <a type="button" class="btn btn-primary form-control">-</a>
+                        <div class="col-2 ps-2 pe-2" >
+                            <a type="button" class="btn btn-primary form-control p-1">-</a>
                         </div>
-                        <div class="col-2">
-                            <h5>X</h5>
+                        <div class="col-2 text-center mb-0">
+                            <h4 style="margin-bottom: 0px" >X</h4>
                         </div>
-                        <div class="col-2 p-0 pe-1">
-                            <a type="button" class="btn btn-primary form-control">+</a>
+                        <div class="col-2 ps-2 pe-2">
+                            <a type="button" class="btn btn-primary form-control p-1">+</a>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row mt-3">
                         <div class="col-6">
-                            <h5>Free</h5>
+                            <h5>Price</h5>
+                        </div>
+                        <div class="col-6 text-end">
+                            <h5>$XX.XX</h5>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <a type="button" class="btn btn-primary btn-lg form-control">Reserve a Spot</a>
+                            <a href="{{ route('checkout_contact_info', $client) }}" type="button" class="btn btn-primary btn-lg form-control">Reserve a Spot</a>
                         </div>
+                    </div>
                     </div>
                 </div>
 
             </div>
-            <div class="col-lg mt-5">
-                <table class="table table-striped">
-                    <tbody>
+            <div class="col-1"></div>
 
-                    </tbody>
-                </table>
-            </div>
         </div>
     </div>
 @endsection

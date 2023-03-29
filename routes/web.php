@@ -66,7 +66,7 @@ Route::put('/client/{client}/events/createS4', [App\Http\Controllers\EventContro
 
 Route::view('/overview','Client_Landing/client_home');
 
-//routes for the customer viewing the client pages
+//routes for the customer viewing the client pages-------------------------------------------------
 Route::get('/tickets/{client}', [App\Http\Controllers\ClientCustomerController::class,
     'client_page'])->name('client_page');
 Route::get('/tickets/{client}/bio', [App\Http\Controllers\ClientCustomerController::class,
@@ -75,3 +75,13 @@ Route::get('/tickets/{client}/reviews', [App\Http\Controllers\ClientCustomerCont
     'reviews_page'])->name('reviews_page');
 Route::get('/tickets/{client}/{event}', [App\Http\Controllers\ClientCustomerController::class,
     'view_event_page'])->name('view_event_page');
+
+//routes for the customer buying tickets to the client's event--------------------------------------------------
+Route::get('/tickets/{client}/checkout/contact_info', [App\Http\Controllers\ClientCustomerController::class,
+    'checkout_contact_info'])->name('checkout_contact_info');
+Route::get('/tickets/{client}/checkout/overview', [App\Http\Controllers\ClientCustomerController::class,
+    'checkout_order_overview'])->name('checkout_order_overview');
+Route::get('/tickets/{client}/checkout/billing', [App\Http\Controllers\ClientCustomerController::class,
+    'checkout_billing_info'])->name('checkout_billing_info');
+Route::get('/tickets/{client}/checkout/success', [App\Http\Controllers\ClientCustomerController::class,
+    'checkout_order_success'])->name('checkout_order_success');
