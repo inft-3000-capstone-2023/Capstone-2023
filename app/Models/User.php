@@ -51,4 +51,9 @@ class User extends Authenticatable
     function client_users(){
         return $this->hasMany(Client_User::class);
     }
+
+    public function getClientId()
+    {
+        return $this->id;
+    }
 }
