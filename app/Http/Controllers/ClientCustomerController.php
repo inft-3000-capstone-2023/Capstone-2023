@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Models\Client_Customer;
 use App\Models\Event;
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -42,42 +43,6 @@ class ClientCustomerController extends Controller
 
     public function view_event_page(Client $client, Event $event){
         return view('customer.customer_client_views.view_event', compact(['client', 'event']));
-    }
-
-    /**
-     * Display a listing of the resource
-     *  Jay - Index was being used, so I created this
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function list_client_customers(Request $request, Client $client)
-    {
-        //
-        $searchTerm = $request->searchTerm;
-//        dd($searchTerm);
-
-        $client_customers = $client->customers()->get();
-
-        foreach ($client_customers as $customer) {
-            $customers[] = [
-                'id' => $customer->user()->get()[0]->id,
-                'name' => $customer->user()->get()[0]->name,
-                'email' => $customer->user()->get()[0]->email,
-            ];
-        }
-
-        $customers = collect($customers)
-            ->sortBy('name', SORT_NATURAL|SORT_FLAG_CASE);
-
-        if ($searchTerm != null) {
-            $customers = $customers->filter(function($item) use ($searchTerm) {
-                if (Str::contains($item['name'], $searchTerm)) {
-                    return $item;
-                }
-            });
-        }
-
-        return view('client.pages.crm.index', compact('customers', 'client', 'searchTerm'));
     }
 
     /**
@@ -140,10 +105,12 @@ class ClientCustomerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Client_Customer  $customer
+     * @param  Client $client
+     * @param  int  $customer_id
+     *
      * @return \Illuminate\Http\Response
      */
-    public function edit(Client_Customer $customer)
+    public function edit(Client $client, int $client_customer_id)
     {
         //
     }
@@ -161,18 +128,123 @@ class ClientCustomerController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $customer_id
+     * Display a listing of the resource
+     *  Jay - Index was being used, so I created this
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $customer_id)
+    public function list_client_customers(Request $request, Client $client)
     {
         //
-        $client_customer = Client_Customer::find($customer_id);
-        $client_customer->delete();
-        $client_customer->user()->delete();
+        $searchTerm = $request->searchTerm;
+
+        $client_customers = $client->customers()->get();
+
+        $customers = [];
+        foreach ($client_customers as $customer) {
+            $customers[] = $customer->user()->get()[0];
+        }
+
+        $customers = collect($customers)
+            ->sortBy('name', SORT_NATURAL|SORT_FLAG_CASE);
+
+        if ($searchTerm != null) {
+            $customers = $customers->filter(function($item) use ($searchTerm) {
+                if (Str::contains(strtolower($item['name']), strtolower($searchTerm))) {
+                    return $item;
+                }
+            });
+        }
+
+        return view('client.pages.crm.index', compact( 'customers', 'client', 'searchTerm'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  Client $client
+     * @param  int  $user_id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function customer_details(Client $client, int $user_id)
+    {
+        //
+        $customer = User::find($user_id);
+        return view('client.pages.crm.customer_details', compact('client', 'customer'));
+    }
+    public function customer_transactions(Request $request, Client $client, int $user_id)
+    {
+        //
+        $searchTerm = $request->searchTerm;
+        $customer = User::find($user_id);
+        $client_customer = $customer->client_customers()->get()[0];
+        $transactions = $client_customer->transactions()->get();
+
+        $transactions = collect($transactions)
+            ->sortBy('created_at', SORT_NATURAL|SORT_FLAG_CASE);
+
+        if ($searchTerm != null) {
+            $transactions = $transactions->filter(function($transaction) use ($searchTerm) {
+                $associated_event = $transaction->event()->get()[0];
+                if (Str::contains(strtolower($associated_event->event_title), strtolower($searchTerm))) {
+                    return $transaction;
+                }
+            });
+        }
+
+        return view('client.pages.crm.customer_transactions', compact('client', 'customer', 'transactions', 'searchTerm'));
+    }
+
+    public function transaction_details(Client $client, int $customer_id, int $transaction_id) {
+        $customer = User::find($customer_id);
+        $transaction = Transaction::find($transaction_id);
+        $associated_event = $transaction->event()->get()[0];
+
+        return view('client.pages.crm.transaction_details', compact('client', 'customer', 'transaction', 'associated_event'));
+    }
+
+    public function customer_finances(Client $client, int $customer_id)
+    {
+        //
+        $customer = User::find($customer_id);
+        $client_customer = $customer->client_customers()->get()[0];
+        $transactions = $client_customer->transactions()->get();
+
+        // Following are the financial stats to display on customer finances page
+        $num_purchases = 0;
+        $amount_spent = 0;
+        foreach($transactions as $transaction) {
+            $num_purchases++;
+            $amount_spent += $transaction->total;
+        }
+        if ($num_purchases > 0) { $avg_amount_spent = $amount_spent / $num_purchases; }
+        else { $avg_amount_spent = 0; }
+
+        return view('client.pages.crm.customer_finances',
+            compact('client', 'customer', 'transactions',
+            'num_purchases', 'amount_spent', 'avg_amount_spent'));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  Client $client
+     * @param  int $client_customer_id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Client $client, int $user_id)
+    {
+        //
+        $user = User::find($user_id);
+        $client_customers = $user->client_customers()->get();
+        foreach ($client_customers as $client_customer) {
+            if ($client_customer->client_id == $client->id) {
+                $client_customer->delete();
+            }
+        }
+        $user->delete();
 
         return redirect()->back()->with('status', 'Customer has been deleted');
     }

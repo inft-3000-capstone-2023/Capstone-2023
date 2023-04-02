@@ -24,7 +24,7 @@
                             <div class="input-group mb-3">
                                 <label for="searchTerm"></label>
                                 <input type="text" class="form-control" id="searchTerm" name="searchTerm"
-                                       value="{{ $searchTerm ? : old('searchTerm') }}" placeholder="Search users">
+                                       value="{{ $searchTerm ? : old('searchTerm') }}" placeholder="Search Customers">
                                 <button type="submit" class="btn btn-outline-primary">Search</button>
                             </div>
                         </form>
@@ -37,8 +37,7 @@
                             <thead>
                             <tr>
                                 <th scope="col">Customer Id</th>
-                                <th scope="col">First Name</th>
-                                <th scope="col">Last Name</th>
+                                <th scope="col">Name</th>
                                 <th scope="col">Email</th>
                                 <th scope="col" colspan="2">Actions</th>
                             </tr>
@@ -46,20 +45,19 @@
                             <tbody>
                             @foreach($customers as $customer)
                                 <tr>
-                                    <td>{{ $customer['id']}}</td>
-                                    <td>{{ $customer['name'] }}</td>
-                                    <td>&nbsp;</td>
-                                    <td>{{ $customer['email'] }}</td>
+                                    <td>{{ $customer->id }}</td>
+                                    <td>{{ $customer->name }}</td>
+                                    <td>{{ $customer->email }}</td>
 
                                     <td>
                                         <form method="POST"
-                                              action="{{ route('client.customers.destroy', [$client->id, $customer['id']]) }}">
+                                              action="{{ route('client.destroy_customer', [$client, $customer->id]) }}">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger">Delete</button>
                                         </form>
                                     </td>
-                                    <td><a href="{{ route('client.customers.show', [$client, $customer['id']]) }}"
+                                    <td><a href="{{ route('client.customer_details', [$client, $customer->id]) }}"
                                            class="btn btn-secondary">Details</a></td>
                                 </tr>
                             @endforeach

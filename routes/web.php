@@ -45,9 +45,18 @@ Route::group(
     ], function() {
         Route::get('/dashboard', [App\Http\Controllers\ClientController::class, 'display_dashboard'])->name('dashboard');
 
-        Route::resource('customers', App\Http\Controllers\ClientCustomerController::class);
-        Route::get('/customers', [App\Http\Controllers\ClientCustomerController::class, 'list_client_customers'])
-            ->name('customers');
+        // TODO Jay - Put in a customers route group within client route group
+        Route::get('/customers', [App\Http\Controllers\ClientCustomerController::class, 'list_client_customers'])->name('customers');
+        Route::delete('/customers/{customers}/delete', [App\Http\Controllers\ClientCustomerController::class, 'destroy'])->name('destroy_customer');
+
+        Route::get('/customers/{customers}/details', [App\Http\Controllers\ClientCustomerController::class, 'customer_details'])
+            ->name('customer_details');
+        Route::get('/customers/{customers}/transactions', [App\Http\Controllers\ClientCustomerController::class, 'customer_transactions'])
+            ->name('customer_transactions');
+        Route::get('/customers/{customers}/transactions/{transaction}/details', [App\Http\Controllers\ClientCustomerController::class, 'transaction_details'])
+            ->name('transaction_details');
+        Route::get('/customers/{customers}/finances', [App\Http\Controllers\ClientCustomerController::class, 'customer_finances'])
+            ->name('customer_finances');
 
         Route::get('/events/', [App\Http\Controllers\EventController::class, 'client_events'])->name('client_events');
         Route::get('/events/createS1', [App\Http\Controllers\EventController::class, 'createS1'])->name('createS1');
