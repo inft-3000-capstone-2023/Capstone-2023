@@ -46,6 +46,8 @@ Route::group(
         Route::get('/dashboard', [App\Http\Controllers\ClientController::class, 'display_dashboard'])->name('dashboard');
 
         Route::resource('customers', App\Http\Controllers\ClientCustomerController::class);
+        Route::get('/customers', [App\Http\Controllers\ClientCustomerController::class, 'list_client_customers'])
+            ->name('customers');
 
         Route::get('/events/', [App\Http\Controllers\EventController::class, 'client_events'])->name('client_events');
         Route::get('/events/createS1', [App\Http\Controllers\EventController::class, 'createS1'])->name('createS1');

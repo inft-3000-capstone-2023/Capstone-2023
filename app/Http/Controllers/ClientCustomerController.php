@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Models\Client_Customer;
 use App\Models\Event;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ClientCustomerController extends Controller
 {
@@ -43,33 +45,94 @@ class ClientCustomerController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display a listing of the resource
+     *  Jay - Index was being used, so I created this
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function list_client_customers(Request $request, Client $client)
     {
         //
+        $searchTerm = $request->searchTerm;
+//        dd($searchTerm);
+
+        $client_customers = $client->customers()->get();
+
+        foreach ($client_customers as $customer) {
+            $customers[] = [
+                'id' => $customer->user()->get()[0]->id,
+                'name' => $customer->user()->get()[0]->name,
+                'email' => $customer->user()->get()[0]->email,
+            ];
+        }
+
+        $customers = collect($customers)
+            ->sortBy('name', SORT_NATURAL|SORT_FLAG_CASE);
+
+        if ($searchTerm != null) {
+            $customers = $customers->filter(function($item) use ($searchTerm) {
+                if (Str::contains($item['name'], $searchTerm)) {
+                    return $item;
+                }
+            });
+        }
+
+        return view('client.pages.crm.index', compact('customers', 'client', 'searchTerm'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @param Client $client
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create(Client $client)
+    {
+        //
+        return view('client.pages.crm.create', compact('client'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  Client  $client
+     *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Client $client)
     {
         //
+//        $request->validate([
+//            'customer_name' => ['required'],
+//            'customer_email' => ['required', 'unique:users,email'],
+//        ]);
+//
+//        $user = User::create([
+//            'name' => $request->customer_name,
+//            'email' => $request->customer_email,
+//            'type' => 0,
+//             'password' => 'unsure',
+//        ]);
+//
+//        Client_Customer::create([
+//            'user_id' => $user->id,
+//            'client_id' => $client->id,
+//        ]);
+//
+//        return redirect()->back()->with('status', 'Client created');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Client_Customer  $customer
+     * @param  Client  $client
+     * @param  int  $customer_id
+     *
      * @return \Illuminate\Http\Response
      */
-    public function show(Client_Customer $customer)
+    public function show(Client $client, Client_Customer $customer_id)
     {
         //
     }
@@ -100,11 +163,17 @@ class ClientCustomerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Client_Customer  $customer
+     * @param  int  $customer_id
+     *
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Client_Customer $customer)
+    public function destroy(int $customer_id)
     {
         //
+        $client_customer = Client_Customer::find($customer_id);
+        $client_customer->delete();
+        $client_customer->user()->delete();
+
+        return redirect()->back()->with('status', 'Customer has been deleted');
     }
 }

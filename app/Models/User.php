@@ -4,13 +4,14 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, softDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -53,10 +54,6 @@ class User extends Authenticatable
     }
 
     function client_id() {
-        if ($this->type == 1) {
-            return $this->client_users()->get()[0]->client_id;
-        } else {
-            return null;
-        }
+        return $this->type == 1 ? $this->client_users()->get()[0]->client_id : null;
     }
 }
