@@ -29,36 +29,60 @@
                                         <a class="btn btn-outline-primary nav-link" href="{{route('client.createS1',$client)}}">Create new event</a>
                                     </li>
                                 </ul>
-                                <form class="d-flex" role="search">
-                                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                                <form class="d-flex" role="search" method="GET" action="{{ route('client.search_events', $client) }}">
+                                    <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search">
                                     <button class="btn btn-outline-success" type="submit">Search</button>
                                 </form>
+
                             </div>
                         </div>
                     </nav>
 
+                        <nav>
+                            <div class="nav nav-tabs pt-sm-2 pb-sm-2" id="nav-tab" role="tablist">
+                                <button class="nav-link active" id="nav-calendar-tab" data-bs-toggle="tab" data-bs-target="#nav-calendar" type="button" role="tab" aria-controls="nav-calendar" aria-selected="true">Event Calendar</button>
+                                <button class="nav-link" id="nav-listing-tab" data-bs-toggle="tab" data-bs-target="#nav-listing" type="button" role="tab" aria-controls="nav-listing" aria-selected="false">Event List</button>
+                            </div>
+                        </nav>
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-calendar" role="tabpanel" aria-labelledby="nav-calendar-tab" tabindex="0">
+                                <div class="container-fluid pt-sm-2 pb-sm-2">
+                                    <div id='calendar'>
 
-                    <div class="container-fluid pt-sm-2">
-                        <div id='calendar'>
+                                    </div>
+                                </div>
 
+                                <script>
+                                    $(document).ready(function() {
+                                        let event = @json($bookings);
+                                        console.log(event);
+                                        $('#calendar').fullCalendar({
+                                            header: {
+                                                left:'prev, next today',
+                                                center: 'title',
+                                                right:'month, agendaWeek, agendaDay',
+                                            },
+
+                                            events: event
+                                        })
+                                    });
+                                </script>
+                            </div>
+                            <div class="tab-pane fade" id="nav-listing" role="tabpanel" aria-labelledby="nav-listing-tab" tabindex="0">
+                                <div id="event-listing pt-sm-2 pb-sm-2">
+                                    @foreach($lists as $list)
+                                        <div class="event">
+                                            <h2>{{ $list['title'] }}</h2>
+                                            <p>{{ $list['description'] }}</p>
+                                            <p>Date & Time: {{ \Carbon\Carbon::parse($list['date_time'])->format('F j, Y, g:i A') }}</p>
+                                        </div>
+                                    @endforeach
+                                </div>
+
+                            </div>
                         </div>
-                    </div>
 
-                    <script>
-                        $(document).ready(function() {
-                            let event = @json($bookings);
-                            console.log(event);
-                            $('#calendar').fullCalendar({
-                                header: {
-                                    left:'prev, next today',
-                                    center: 'title',
-                                    right:'month, agendaWeek, agendaDay',
-                                },
 
-                                events: event
-                            })
-                        });
-                    </script>
 
                 </div>
 

@@ -48,6 +48,7 @@ Route::group(
         Route::resource('customers', App\Http\Controllers\ClientCustomerController::class);
 
         Route::get('/events/', [App\Http\Controllers\EventController::class, 'client_events'])->name('client_events');
+        Route::get('/search-events', [App\Http\Controllers\EventController::class,'searchEvents'])->name('search_events');
         Route::get('/events/createS1', [App\Http\Controllers\EventController::class, 'createS1'])->name('createS1');
         Route::get('/events/createS2', [App\Http\Controllers\EventController::class, 'createS2'])->name('createS2');
         Route::get('/events/createS3', [App\Http\Controllers\EventController::class, 'createS3'])->name('createS3');
@@ -59,6 +60,7 @@ Route::group(
 
         Route::get('/info/organizer',[\App\Http\Controllers\ClientController::class,'client_organizer'])->name('client_organizer');
         Route::get('/info/team', [\App\Http\Controllers\ClientUserController::class,'client_team'])->name('client_team');
+        Route::get('/info/team/invite_team_member', [App\Http\Controllers\EventController::class, 'invite_team_member'])->name('invite_team_member');
         Route::get('/info/team/edit', [\App\Http\Controllers\ClientUserController::class,'team_edit'])->name('team_edit');
         Route::put('/info/team/edit', [\App\Http\Controllers\ClientUserController::class,'team_update'])->name('team_update');
         Route::get('/info/organizer/edit-profile',[\App\Http\Controllers\ClientController::class,'edit_profile'])->name('edit_profile');

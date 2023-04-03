@@ -27,7 +27,7 @@
                     <div class="container-fluid col-10 pt-sm-2 pb-sm-2">
                     <h1>Organizer Profile</h1>
                     <hr>
-                        <form class="row g-3" method="post" action="{{route('client.update_profile',$client)}}">
+                        <form class="row g-3" method="post" action="{{route('client.update_profile',$client)}}" enctype="multipart/form-data">
                             @method('PUT')
                             @csrf
 

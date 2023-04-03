@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('client.layouts.app')
 
 @section('content')
     <div class="container-fluid">
@@ -21,7 +21,7 @@
                                     <div class="card pt-sm-2 pb-sm-2 border-primary">
                                         <div class="card-body">
                                             <h5 class="card-title">Create your event</h5>
-                                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                            <p class="card-text">Creating an event is an exciting opportunity to bring people together and create a memorable experience. </p>
                                             <a href="{{route('client.createS1',$client)}}" class="btn btn-primary">Create!</a>
                                         </div>
                                     </div>
@@ -30,7 +30,7 @@
                                     <div class="card pt-sm-2 pb-sm-2 border-primary">
                                         <div class="card-body">
                                             <h5 class="card-title">Update your organizer profile</h5>
-                                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                            <p class="card-text">Updating your organizer profile regularly ensures that your information is accurate and up-to-date.</p>
                                             <a href="{{route('client.client_organizer',$client)}}" class="btn btn-primary">Start!</a>
                                         </div>
                                     </div>
@@ -43,7 +43,7 @@
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title">View your recent events</h5>
-                                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                    <p class="card-text">Viewing your recent events is an excellent way to reflect on your event planning skills and identify areas for improvement. </p>
                                     <a href="{{route('client.client_events',$client)}}" class="btn btn-primary">Go!</a>
                                 </div>
                                 <div class="card-footer text-body-secondary">

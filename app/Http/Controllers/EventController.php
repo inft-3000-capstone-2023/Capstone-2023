@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Models\Event;
 use App\Models\Image;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request as HttpRequest;
+use Illuminate\Support\Facades\Request;
 
 class EventController extends Controller
 {
@@ -39,7 +40,33 @@ class EventController extends Controller
             ];
         }
 
-        return view('client.pages.event.index', ['bookings'=>$bookings, 'client' => $client]);
+        // Fetch the 5 most recent events
+        $recentEvents = $client->events()->latest('created_at')->take(5)->get();
+
+        // Map the recent events to the required format for the event listing
+        $lists = $recentEvents->map(function ($event) {
+            return [
+                'title' => $event->event_title,
+                'description' => $event->event_description,
+                'date_time' => $event->date_time,
+            ];
+        });
+
+        return view('client.pages.event.index', ['bookings' => $bookings, 'client' => $client, 'lists' => $lists, 'searchResults' => []]);
+
+    }
+
+    public function searchEvents(Client $client)
+    {
+        $searchTerm = Request::get('search');
+
+        // Replace this with the appropriate model relationship and columns for searching
+        $events = $client->events()->where('event_title', 'LIKE', "%{$searchTerm}%")
+            ->orWhere('event_description', 'LIKE', "%{$searchTerm}%")
+            ->get();
+
+        // You can pass the events to your view or return them as JSON
+        return view('client.pages.event.index', ['client' => $client, 'events' => $events, 'searchResults' => $events]);
     }
 
     /**
@@ -114,11 +141,12 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createS1(Request $request, Client $client)
+    public function createS1(HttpRequest $request, Client $client)
     {
         $event = $request->session()->get('event');
-        return view('client.pages.event.createS1',compact(['event','client']));
+        return view('client.pages.event.createS1', compact(['event', 'client']));
     }
+
 
     /**
      * Post Request to store step1 info in session
@@ -126,7 +154,7 @@ class EventController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function postcreateS1(Request $request, Client $client)
+    public function postcreateS1(HttpRequest $request, Client $client)
     {
         $validatedData = $request->validate([
             'event_title' => 'required|unique:events',
@@ -139,38 +167,40 @@ class EventController extends Controller
             'time_zone' => 'required',
         ]);
 
-        if(empty($request->session()->get('event'))){
+        if (empty($request->session()->get('event'))) {
             $event = new Event();
             $event->fill($validatedData);
             $request->session()->put('event', $event);
-        }else{
+        } else {
             $event = $request->session()->get('event');
             $event->fill($validatedData);
             $request->session()->put('event', $event);
         }
 
-        return redirect()->route('client.createS2',compact(['event','client']));
+        return redirect()->route('client.createS2', ['client' => $client->id]);
     }
+
 
     /**
      * Show the step Two Form for creating a new event.
      *
      * @return \Illuminate\Http\Response
      */
-    public function createS2(Request $request, Client $client)
+    public function createS2(HttpRequest $request, Client $client)
     {
         $event = $request->session()->get('event');
         $images = Image::orderBy('id')->get();
 
-        return view('client.pages.event.createS2',compact(['event','images','client']));
+        return view('client.pages.event.createS2', compact(['event', 'images', 'client']));
     }
+
 
     /**
      * Show the step Two Form for creating a new event.
      *
      * @return \Illuminate\Http\Response
      */
-    public function postcreateS2(Request $request, Client $client, Image $image)
+    public function postcreateS2(HttpRequest $request, Client $client, Image $image)
     {
         $validatedData = $request->validate([
             'path' => 'required',
@@ -181,30 +211,32 @@ class EventController extends Controller
         ]);
 
         $event = $request->session()->get('event');
-        $event->fill($validatedData)->Images()->sync($request->image_ids);;
+        $event->fill($validatedData)->Images()->sync($request->image_ids);
         $request->session()->put('event', $event);
 
-        return redirect()->route('client.createS3',compact(['event','client','image']));
+        return redirect()->route('client.createS3', ['client' => $client->id, 'image' => $image->id]);
     }
+
 
     /**
      * Show the step Three Form for creating a new event.
      *
      * @return \Illuminate\Http\Response
      */
-    public function createS3(Request $request, Client $client)
+    public function createS3(HttpRequest $request, Client $client)
     {
         $event = $request->session()->get('event');
 
-        return view('client.pages.event.createS3',compact(['event','client']));
+        return view('client.pages.event.createS3', compact(['event', 'client']));
     }
+
 
     /**
      * Show the step Three Form for creating a new event.
      *
      * @return \Illuminate\Http\Response
      */
-    public function postcreateS3(Request $request, Client $client)
+    public function postcreateS3(HttpRequest $request, Client $client)
     {
         $validatedData = $request->validate([
             'max_tickets_per_customer' => 'required',
@@ -215,35 +247,38 @@ class EventController extends Controller
         $event->fill($validatedData);
         $request->session()->put('event', $event);
 
-        return redirect()->route('client.createS4',compact(['event','client']));
+        return redirect()->route('client.createS4', ['client' => $client->id]);
     }
+
 
     /**
      * Show the step Four Form for creating a new event.
      *
      * @return \Illuminate\Http\Response
      */
-    public function createS4(Request $request, Client $client)
+    public function createS4(HttpRequest $request, Client $client)
     {
         $event = $request->session()->get('event');
         $event->client_id = auth()->id();  // auth()->id()
 
-        return view('client.pages.event.createS4',compact(['event','client']));
+        return view('client.pages.event.createS4', compact(['event', 'client']));
     }
+
 
     /**
      * Show the step Four Form for creating a new event.
      *
      * @return \Illuminate\Http\Response
      */
-    public function postcreateS4(Request $request, Client $client)
+    public function postcreateS4(HttpRequest $request, Client $client)
     {
         $event = $request->session()->get('event');
         $client = $event->client;
         $event->save();
         $request->session()->forget('event');
 
-        return redirect()->route('client.client_events', compact(['event','client']))->with('status','New event has been created!');
+        return redirect()->route('client.client_events', ['client' => $client->id])->with('status', 'New event has been created!');
     }
+
 
 }

@@ -27,6 +27,21 @@
                     <div class="container-fluid col-10 pt-sm-2 pb-sm-2">
                     <h1>Team Management</h1>
                     <hr>
+                        <div class="mb-3">
+                            <form method="post" action="{{route('client.invite_team_member', $client->id)}}" class="d-flex">
+                                @csrf
+                                <div class="input-group">
+                                    <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="Enter email to invite team member" required>
+                                    <button class="btn btn-primary" type="submit">Invite</button>
+                                </div>
+                                @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </form>
+                        </div>
+
                         <table class="table">
                             <thead>
                             <tr>

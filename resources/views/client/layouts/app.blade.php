@@ -30,7 +30,14 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-
+{{--                        @auth--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a href="{{ route('client.dashboard', ['client' => auth()->id()]) }}">Dashboard</a>--}}
+{{--                            </li>--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a href="{{ route('client.client_events', ['client' => auth()->id()]) }}">Events</a>--}}
+{{--                            </li>--}}
+{{--                        @endauth--}}
                     </ul>
 
                     <!-- Right Side Of Navbar -->
