@@ -44,8 +44,8 @@ class LoginController extends Controller
         if (Auth::user()->type == 0){ //type 0 is admin
             return route('admin.clients.index');
         } else if (Auth::user()->type == 1) { //type 1 is client user
-            $client_id = Auth::user()->getClientId();
-            return route('client.dashboard', ['client' => $client_id]);
+            $client_id = Auth::user()->client_id();
+            return route('client.dashboard', $client_id);
         } else{ //a customer is logged in, send them to their customer homepage
             return route('home');
         }
