@@ -13,12 +13,13 @@ class Event extends Model
 
     protected $fillable = [
         'client_id','event_title', 'event_description',
-        'max_tickets_per_customer', 'date_time', 'time_zone', 'street',
+        'max_tickets_per_customer', 'date_time', 'end_time', 'time_zone', 'venue' ,'street',
         'city', 'province', 'postal_code', 'ticket_price'
     ];
 
     protected $casts = [
-        'date_time' => 'datetime'
+        'date_time' => 'datetime',
+        'end_time' => 'datetime'
     ];
 
     function client(){
