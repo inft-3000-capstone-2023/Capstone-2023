@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use App\Models\Client_User;
+use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ClientUserController extends Controller
 {
@@ -18,22 +20,30 @@ class ClientUserController extends Controller
 
     public function team_edit($id)
     {
-        // Fetch all available roles
+        $client_id = Auth::user()->client_id();
+        $client_users = Client_User::where('client_id', $client_id)->get();
+        $client_user = Client_User::findOrFail($id);
+        $roles = Role::all();
+
+        return view('client.pages.info.team_edit', compact('client_user', 'client_users', 'roles'));
+    }
+
+
+    public function team_update(Request $request, $id)
+    {
         $client_user = Client_User::findOrFail($id);
 
-        // Return the edit view with the client_user and roles
-        return view('client.pages.info.team_edit', compact('client_user'));
-    }
-
-    public function team_update(Request $request, Client_User $client_User) {
         $request->validate([
-            'role_ids'=>['required']
+            'role_ids' => 'required|array',
+            'role_ids.*' => 'exists:roles,id',
         ]);
-        $role_ids = request()->input('role_ids');
-        $client_User->roles()->sync($request->$role_ids);
 
-        return redirect(route('client.team'))->with('status', 'Team member has been updated!');
+        $role_ids = $request->input('role_ids');
+        $client_user->roles()->sync($role_ids);
+
+        return redirect()->route('client.team')->with('status', 'Team member has been updated!');
     }
+
 
     /**
      * Display a listing of the resource.

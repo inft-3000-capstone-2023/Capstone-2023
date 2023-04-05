@@ -29,10 +29,7 @@
                                         <a class="btn btn-outline-primary nav-link" href="{{route('client.createS1',$client)}}">Create new event</a>
                                     </li>
                                 </ul>
-                                <form class="d-flex" role="search" method="GET" action="{{ route('client.search_events', $client) }}">
-                                    <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search">
-                                    <button class="btn btn-outline-success" type="submit">Search</button>
-                                </form>
+
 
                             </div>
                         </div>
@@ -54,21 +51,23 @@
 
                                 <script>
                                     $(document).ready(function() {
-                                        let event = @json($bookings);
-                                        console.log(event);
                                         $('#calendar').fullCalendar({
                                             header: {
-                                                left:'prev, next today',
+                                                left: 'prev,next today',
                                                 center: 'title',
-                                                right:'month, agendaWeek, agendaDay',
+                                                right: 'month,agendaWeek,agendaDay'
                                             },
-
-                                            events: event
-                                        })
+                                            events: {!! json_encode($bookings) !!},
+                                            timezone: 'local'
+                                        });
                                     });
                                 </script>
                             </div>
                             <div class="tab-pane fade" id="nav-listing" role="tabpanel" aria-labelledby="nav-listing-tab" tabindex="0">
+                                <form class="d-flex pt-sm-2 pb-sm-2" role="search" method="GET" action="{{ route('client.search_events', $client) }}">
+                                    <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search">
+                                    <button class="btn btn-outline-success" type="submit">Search</button>
+                                </form>
                                 <div id="event-listing pt-sm-2 pb-sm-2">
                                     @foreach($lists as $list)
                                         <div class="event">

@@ -14,10 +14,10 @@
                             <a class="nav-link active" aria-current="page" href="{{route('client.createS1', $client)}}">Basic Info</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('client.createS2', $client)}}">Details</a>
+                            <a class="nav-link" href="{{route('client.createS2', $client)}}">Ticket</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('client.createS3', $client)}}">Ticket</a>
+                            <a class="nav-link" href="{{route('client.createS3', $client)}}">Details</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('client.createS4', $client)}}">Publish</a>

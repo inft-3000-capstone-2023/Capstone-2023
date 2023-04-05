@@ -23,7 +23,7 @@
                             <span class="home-text">WELCOME TO NETS</span>
                             <h1 class="home-text01">Create your event today..</h1>
                             @auth
-                                <button onclick="location.href='{{ route('client.dashboard', ['client' => auth()->id()]) }}'" class="home-button button">Get Started</button>
+                                <button onclick="location.href='{{ route('client.dashboard', ['client' => Auth::user()->client_id()]) }}'" class="home-button button">Get Started</button>
                             @else
                                 <button onclick="location.href='{{ route('login') }}'" class="home-button button">Get Started</button>
                             @endauth

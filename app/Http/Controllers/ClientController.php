@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
 {
@@ -145,17 +146,32 @@ class ClientController extends Controller
      *
      */
 
-    public function client_organizer(Client $client) {
+    public function client_organizer() {
+        // Get the client_id from the authenticated user
+        $client_id = Auth::user()->client_id();
 
-        return view('client.pages.info.organizer',compact('client'));
+        // Find the client using the client_id
+        $client = Client::find($client_id);
+
+        return view('client.pages.info.organizer', compact('client'));
     }
 
-    public function edit_profile(Client $client) {
 
+    public function edit_profile() {
+        // Get the client_id from the authenticated user
+        $client_id = Auth::user()->client_id();
+
+        // Find the client using the client_id
+        $client = Client::find($client_id);
         return view('client.client_organizer', compact('client'));
     }
-    public function update_profile(Request $request, Client $client)
+    public function update_profile(Request $request)
     {
+        // Get the client_id from the authenticated user
+        $client_id = Auth::user()->client_id();
+
+        $client = Client::find($client_id);
+
         // Validate the request data, including the uploaded file
         $validatedData = $request->validate([
             'company_name' => 'required',
@@ -172,20 +188,20 @@ class ClientController extends Controller
             // Store the uploaded file
             $file = $request->file('logo_path');
             $fileName = time() . '_' . $file->getClientOriginalName();
-            $filePath = $file->storeAs('uploads', $fileName, 'public');
+            $filePath = $file->storeAs('public/uploads', $fileName);
 
             // Update the client's logo_path
-            $client->logo_path = $filePath;
+            $client->logo_path = 'storage/uploads/' . $fileName;
         }
 
         // Save the client
         $client->save();
 
-        return redirect()->route('client.client_organizer', $client->id)->with('status', 'Organizer profile has been updated!');
+        return redirect()->route('client.client_organizer',  ['client' => $client])->with('status', 'Organizer profile has been updated!');
     }
 
-    public function invite_team_member(Request $request, Client $client) {
 
+    public function invite_team_member(Request $request, Client $client) {
 
     }
 }
