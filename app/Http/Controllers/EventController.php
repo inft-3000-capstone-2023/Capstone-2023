@@ -60,14 +60,16 @@ class EventController extends Controller
     }
 
     public function search_events(Client $client, HttpRequest $request) {
-//        $query = $request->input('search');
-//        $lists = Event::where('client_id', $client->id)
-//            ->where('event_title', 'like', '%'.$query.'%')
-//            ->orWhere('event_description', 'like', '%'.$query.'%')
-//            ->get();
-//        return view('client.pages.event.index', ['lists' => $lists, 'searchResults' => $lists]);
-    }
+        $query = $request->input('search');
+        $lists = Event::where('client_id', $client->id)
+            ->where(function($q) use ($query) {
+                $q->where('event_title', 'like', '%'.$query.'%')
+                    ->orWhere('event_description', 'like', '%'.$query.'%');
+            })
+            ->get();
 
+        return view('client.pages.event.search_results', ['lists' => $lists]);
+    }
 
 
     /**

@@ -39,6 +39,8 @@
                             <div class="nav nav-tabs pt-sm-2 pb-sm-2" id="nav-tab" role="tablist">
                                 <button class="nav-link active" id="nav-calendar-tab" data-bs-toggle="tab" data-bs-target="#nav-calendar" type="button" role="tab" aria-controls="nav-calendar" aria-selected="true">Event Calendar</button>
                                 <button class="nav-link" id="nav-listing-tab" data-bs-toggle="tab" data-bs-target="#nav-listing" type="button" role="tab" aria-controls="nav-listing" aria-selected="false">Event List</button>
+                                <button class="nav-link" id="nav-search-tab" data-bs-toggle="tab" data-bs-target="#nav-search" type="button" role="tab" aria-controls="nav-search" aria-selected="false">Event Search</button>
+
                             </div>
                         </nav>
                         <div class="tab-content" id="nav-tabContent">
@@ -64,11 +66,8 @@
                                 </script>
                             </div>
                             <div class="tab-pane fade" id="nav-listing" role="tabpanel" aria-labelledby="nav-listing-tab" tabindex="0">
-                                <form class="d-flex pt-sm-2 pb-sm-2" role="search" method="GET" action="{{ route('client.search_events', $client) }}">
-                                    <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search">
-                                    <button class="btn btn-outline-success" type="submit">Search</button>
-                                </form>
                                 <div id="event-listing pt-sm-2 pb-sm-2">
+
                                     @foreach($lists as $list)
                                         <div class="event">
                                             <h2>{{ $list['title'] }}</h2>
@@ -79,10 +78,48 @@
                                 </div>
 
                             </div>
-                        </div>
 
+                            <div class="tab-pane fade" id="nav-search" role="tabpanel" aria-labelledby="nav-search-tab" tabindex="0">
+                                <div id="event-search pt-sm-2 pb-sm-2">
+                                    <form class="d-flex pt-sm-2 pb-sm-2" role="search" method="GET" action="{{ route('client.search_events', $client) }}">
+                                        <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search" id="event-search-input">
+                                    </form>
+                                    <div id="search-results" class="pt-sm-2 pb-sm-2">
+                                        @if(count($searchResults) > 0)
+                                            <div class="event-list">
+                                                @foreach($lists as $list)
+                                                    <div class="event">
+                                                        <h2>{{ $list->event_title }}</h2>
+                                                        <p>{{ $list->event_description }}</p>
+                                                        <p>Date & Time: {{ $list->date_time->format('F j, Y, g:i A') }}</p>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        @else
+                                            <p>No search results found.</p>
+                                        @endif
+                                    </div>
+                                    <script>
+                                        $(document).ready(function() {
+                                            $('#event-search-input').on('keyup', function() {
+                                                var query = $(this).val();
+                                                $.ajax({
+                                                    url: "{{ route('client.search_events', $client) }}",
+                                                    type: "GET",
+                                                    data: {
+                                                        search: query
+                                                    },
+                                                    success: function(response) {
+                                                        $('#search-results').html(response);
+                                                    }
+                                                });
+                                            });
+                                        });
+                                    </script>
 
-
+                                </div>
+                            </div>
+                            </div>
                 </div>
 
             </div>
