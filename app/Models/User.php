@@ -52,7 +52,7 @@ class User extends Authenticatable
     function client_users(){
         return $this->hasMany(Client_User::class);
     }
-
+    
     function client_id() {
         return $this->type == 1 ? $this->client_users()->get()[0]->client_id : null;
     }

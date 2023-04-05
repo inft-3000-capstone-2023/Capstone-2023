@@ -135,9 +135,57 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function display_dashboard(int $id)
+    public function display_dashboard(Client $client)
     {
-        $client = Client::find($id);
         return view('client.pages.dashboard', compact('client'));
+    }
+
+    /*
+     * for client organization info profile page
+     *
+     */
+
+    public function client_organizer(Client $client) {
+
+        return view('client.pages.info.organizer',compact('client'));
+    }
+
+    public function edit_profile(Client $client) {
+
+        return view('client.client_organizer', compact('client'));
+    }
+    public function update_profile(Request $request, Client $client)
+    {
+        // Validate the request data, including the uploaded file
+        $validatedData = $request->validate([
+            'company_name' => 'required',
+            'description' => 'required',
+            'logo_path' => 'nullable|file|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
+
+        // Update the client data
+        $client->company_name = $request->input('company_name');
+        $client->description = $request->input('description');
+
+        // Check if a new logo file has been uploaded
+        if ($request->hasFile('logo_path')) {
+            // Store the uploaded file
+            $file = $request->file('logo_path');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $filePath = $file->storeAs('uploads', $fileName, 'public');
+
+            // Update the client's logo_path
+            $client->logo_path = $filePath;
+        }
+
+        // Save the client
+        $client->save();
+
+        return redirect()->route('client.client_organizer', $client->id)->with('status', 'Organizer profile has been updated!');
+    }
+
+    public function invite_team_member(Request $request, Client $client) {
+
+
     }
 }

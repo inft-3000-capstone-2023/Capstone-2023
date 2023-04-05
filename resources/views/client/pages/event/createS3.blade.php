@@ -11,16 +11,16 @@
                     <div class="container col-10 pt-sm-2">
                     <ul class="nav nav-pills nav-fill">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('createS1', $client)}}">Basic Info</a>
+                            <a class="nav-link" href="{{route('client.createS1', $client)}}">Basic Info</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('createS2', $client)}}">Details</a>
+                            <a class="nav-link" href="{{route('client.createS2', $client)}}">Details</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{route('createS3', $client)}}">Ticket</a>
+                            <a class="nav-link active" aria-current="page" href="{{route('client.createS3', $client)}}">Ticket</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('createS4', $client)}}">Publish</a>
+                            <a class="nav-link" href="{{route('client.createS4', $client)}}">Publish</a>
                         </li>
                     </ul>
                     </div>
@@ -28,7 +28,7 @@
                     <div class="container-fluid col-10 pt-sm-2 pb-sm-2">
                     <h1>Ticket</h1>
                     <hr>
-                    <form class="row g-3" method="post" action="{{route('postcreateS3', $client)}}">
+                    <form class="row g-3" method="post" action="{{route('client.postcreateS3', $client)}}">
                         @csrf
                         <div class="col-12">
                             <label for="max_tickets_per_customer" class="form-label">Maximum tickets per customer</label>
