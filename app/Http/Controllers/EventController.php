@@ -7,6 +7,8 @@ use App\Models\Event;
 use App\Models\Image;
 use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class EventController extends Controller
 {
@@ -25,9 +27,11 @@ class EventController extends Controller
         //
     }
 
-    public function client_events(Client $client) {
-        $bookings = array();
+    public function client_events($client_id) {
+        // Find the client using the client_id
+        $client = Client::find($client_id);
 
+        $bookings = array();
         $events = $client->events;
 
         foreach ($events as $event) {
@@ -53,21 +57,20 @@ class EventController extends Controller
         });
 
         return view('client.pages.event.index', ['bookings' => $bookings, 'client' => $client, 'lists' => $lists, 'searchResults' => []]);
-
     }
 
-    public function searchEvents(Client $client)
-    {
-        $searchTerm = Request::get('search');
-
-        // Replace this with the appropriate model relationship and columns for searching
-        $events = $client->events()->where('event_title', 'LIKE', "%{$searchTerm}%")
-            ->orWhere('event_description', 'LIKE', "%{$searchTerm}%")
+    public function search_events(Client $client, HttpRequest $request) {
+        $query = $request->input('search');
+        $lists = Event::where('client_id', $client->id)
+            ->where(function($q) use ($query) {
+                $q->where('event_title', 'like', '%'.$query.'%')
+                    ->orWhere('event_description', 'like', '%'.$query.'%');
+            })
             ->get();
 
-        // You can pass the events to your view or return them as JSON
-        return view('client.pages.event.index', ['client' => $client, 'events' => $events, 'searchResults' => $events]);
+        return view('client.pages.event.search_results', ['lists' => $lists]);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -141,8 +144,10 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createS1(HttpRequest $request, Client $client)
+    public function createS1(HttpRequest $request, $client_id)
     {
+        $client = Client::find($client_id);
+
         $event = $request->session()->get('event');
         return view('client.pages.event.createS1', compact(['event', 'client']));
     }
@@ -154,8 +159,10 @@ class EventController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function postcreateS1(HttpRequest $request, Client $client)
+    public function postcreateS1(HttpRequest $request, $client_id)
     {
+        $client = Client::find($client_id);
+
         $validatedData = $request->validate([
             'event_title' => 'required|unique:events',
             'event_description'=>'required',
@@ -186,12 +193,13 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createS2(HttpRequest $request, Client $client)
+    public function createS3(HttpRequest $request, $client_id)
     {
+        $client = Client::find($client_id);
         $event = $request->session()->get('event');
         $images = Image::orderBy('id')->get();
 
-        return view('client.pages.event.createS2', compact(['event', 'images', 'client']));
+        return view('client.pages.event.createS3', compact(['event', 'images', 'client']));
     }
 
 
@@ -200,22 +208,40 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function postcreateS2(HttpRequest $request, Client $client, Image $image)
+    public function postcreateS3(HttpRequest $request, $client_id)
     {
+        $client = Client::find($client_id);
+
         $validatedData = $request->validate([
-            'path' => 'required',
+            'path' => 'required|file|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'alt_text' => 'required',
             'description' => 'required',
-            'event_id' => '',
-            'image_id' => ''
         ]);
 
         $event = $request->session()->get('event');
-        $event->fill($validatedData)->Images()->sync($request->image_ids);
-        $request->session()->put('event', $event);
 
-        return redirect()->route('client.createS3', ['client' => $client->id, 'image' => $image->id]);
+        // Set the client_id for the event
+        $event->client_id = $client->id;
+
+        // Save the event to the database
+        $event->save();
+
+        if ($request->hasFile('path')) {
+            $image = new Image($validatedData);
+            $file = $request->file('path');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('public/images', $filename);
+            $image->path = 'storage/images/' . $filename;
+            $image->save();
+
+            $event->Images()->attach($image->id);
+            $request->session()->put('event', $event);
+        }
+
+        return redirect()->route('client.createS4', ['client' => $client->id]);
     }
+
+
 
 
     /**
@@ -223,11 +249,13 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createS3(HttpRequest $request, Client $client)
+    public function createS2(HttpRequest $request, $client_id)
     {
+        $client = Client::find($client_id);
+
         $event = $request->session()->get('event');
 
-        return view('client.pages.event.createS3', compact(['event', 'client']));
+        return view('client.pages.event.createS2', compact(['event', 'client']));
     }
 
 
@@ -236,8 +264,10 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function postcreateS3(HttpRequest $request, Client $client)
+    public function postcreateS2(HttpRequest $request, $client_id)
     {
+        $client = Client::find($client_id);
+
         $validatedData = $request->validate([
             'max_tickets_per_customer' => 'required',
             'ticket_price' => 'required'
@@ -247,7 +277,7 @@ class EventController extends Controller
         $event->fill($validatedData);
         $request->session()->put('event', $event);
 
-        return redirect()->route('client.createS4', ['client' => $client->id]);
+        return redirect()->route('client.createS3', ['client' => $client->id]);
     }
 
 
@@ -256,8 +286,10 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createS4(HttpRequest $request, Client $client)
+    public function createS4(HttpRequest $request, $client_id)
     {
+        $client = Client::find($client_id);
+
         $event = $request->session()->get('event');
         $event->client_id = auth()->id();  // auth()->id()
 
@@ -270,15 +302,23 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function postcreateS4(HttpRequest $request, Client $client)
+    public function postcreateS4(HttpRequest $request)
     {
+        // Get the client_id from the authenticated user
+        $client_id = Auth::user()->client_id();
+
+        $client = Client::find($client_id);
+
         $event = $request->session()->get('event');
-        $client = $event->client;
+        // Set the correct client_id for the event
+        $event->client_id = $client_id;
         $event->save();
+
         $request->session()->forget('event');
 
-        return redirect()->route('client.client_events', ['client' => $client->id])->with('status', 'New event has been created!');
+        return redirect()->route('client.client_events', ['client' => $client])->with('status', 'New event has been created!');
     }
+
 
 
 }

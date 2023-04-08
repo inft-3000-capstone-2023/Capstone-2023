@@ -59,7 +59,7 @@ Route::group(
             ->name('customer_finances');
 
         Route::get('/events/', [App\Http\Controllers\EventController::class, 'client_events'])->name('client_events');
-        Route::get('/search-events', [App\Http\Controllers\EventController::class,'searchEvents'])->name('search_events');
+        Route::get('/search_events', [App\Http\Controllers\EventController::class,'search_events'])->name('search_events');
         Route::get('/events/createS1', [App\Http\Controllers\EventController::class, 'createS1'])->name('createS1');
         Route::get('/events/createS2', [App\Http\Controllers\EventController::class, 'createS2'])->name('createS2');
         Route::get('/events/createS3', [App\Http\Controllers\EventController::class, 'createS3'])->name('createS3');

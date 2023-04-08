@@ -11,10 +11,10 @@
                     <div class="container col-10 pt-sm-2">
                     <ul class="nav nav-pills nav-fill">
                         <li class="nav-item">
-                            <a class="nav-link " href="{{route('client.client_organizer', $client)}}">Organizer Profile</a>
+                            <a class="nav-link " href="{{route('client.client_organizer', Auth::user()->client_id())}}">Organizer Profile</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page"  href="{{route('client.client_team', $client)}}">Team Management</a>
+                            <a class="nav-link active" aria-current="page"  href="{{route('client.client_team', Auth::user()->client_id())}}">Team Management</a>
                         </li>
                     </ul>
                     </div>
