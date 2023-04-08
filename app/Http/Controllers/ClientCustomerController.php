@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Models\Client_Customer;
 use App\Models\Event;
+use App\Models\Review;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,6 +16,10 @@ use Illuminate\Support\Str;
 
 class ClientCustomerController extends Controller
 {
+    public function __construct(){
+        $this->middleware('check.user.customer');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -36,9 +41,34 @@ class ClientCustomerController extends Controller
     }
 
     public function reviews_page(Client $client){
-        $reviews = $client->reviews()->paginate(5);
-        $total_rating = $client->total_review_rating / $client->total_number_reviews;
-        return view('customer.customer_client_views.reviews', compact(['reviews', 'client', 'total_rating']));
+        $reviews = $client->reviews()->orderBy('created_at', 'desc')->paginate(5);
+        $total_rating = ceil($client->total_review_rating / $client->total_number_reviews);
+        $canReview = true;
+        $hasReview = false;
+        $userReview = null;
+
+        //figuring out if the user viewing the reviews page can leave a review
+        //are they logged in?
+        if (!Auth::user()){
+            //not logged in, can't leave a review
+            $canReview = false;
+        } else {
+            //are they a current customer of the client?
+            if (count(Auth::user()->client_customers()->where('client_id', $client->id)->get()) == 0){
+                //they are not a current customer of the client
+                $canReview = false;
+            } else {//they are a current customer
+                //do they already have a review?
+                $userReview = Auth::user()->client_customers()->where('client_id', $client->id)->first()->reviews()->where('client_id', $client->id)->first();
+                if ($userReview != null){
+                    //have a review
+                    $canReview = false;
+                    $hasReview = true;
+                }
+            }
+        }
+
+        return view('customer.customer_client_views.reviews', compact(['reviews', 'client', 'total_rating', 'canReview', 'hasReview', 'userReview']));
     }
 
     public function view_event_page(Client $client, Event $event){
