@@ -5,10 +5,11 @@ namespace App\Models;
 use Couchbase\TermRangeSearchQuery;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Client_Customer extends Model
 {
-    use HasFactory;
+    use HasFactory, softDeletes;
 
     public $table = 'client_customers';
 

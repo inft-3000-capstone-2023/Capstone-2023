@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->foreignId('client_id');
             $table->timestamps();
+            $table->softDeletes();
 
             //fk
             $table->foreign('user_id')->references('id')->on('users');

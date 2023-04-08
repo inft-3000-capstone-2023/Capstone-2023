@@ -11,70 +11,48 @@
                     <div class="container col-10 pt-sm-2">
                     <ul class="nav nav-pills nav-fill">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('createS1', $client)}}">Basic Info</a>
+                            <a class="nav-link" href="{{route('client.createS1', $client)}}">Basic Info</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{route('createS2', $client)}}">Details</a>
+                            <a class="nav-link active" aria-current="page" href="{{route('client.createS2', $client)}}">Ticket</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('createS3', $client)}}">Ticket</a>
+                            <a class="nav-link" href="{{route('client.createS3', $client)}}">Details</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('createS4', $client)}}">Publish</a>
+                            <a class="nav-link" href="{{route('client.createS4', $client)}}">Publish</a>
                         </li>
                     </ul>
                     </div>
 
                     <div class="container-fluid col-10 pt-sm-2 pb-sm-2">
-                    <h1>Details</h1>
-                    <hr>
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
+                        <h1>Ticket</h1>
+                        <hr>
+                        <form class="row g-3" method="post" action="{{route('client.postcreateS2', $client)}}">
+                            @csrf
+                            <div class="col-12">
+                                <label for="max_tickets_per_customer" class="form-label">Maximum tickets per customer</label>
+                                <input type="number" name="max_tickets_per_customer" class="form-control @error('max_tickets_per_customer') is-invalid @enderror" id="max_tickets_per_customer" value="{{ $event->max_tickets_per_customer ?? '' }}">
+                                @error('max_tickets_per_customer')
+                                <span class="invalid-feedback" role="alert">
+                                <strong>{{$message}}</strong>
+                                </span>
+                                @enderror
                             </div>
-                        @endif
-
-                    <form class="row g-3" method="post" action="{{route('postcreateS2', $client)}}">
-                        @csrf
-                        <div class="col-12">
-                            <label for="path" class="form-label">Main Event Image</label>
-                            <input class="form-control @error('path') is-invalid @enderror" name="path" type="file" id="path" value="{{ $event->path ?? '' }}">
-                            @error('path')
-                            <span class="invalid-feedback" role="alert">
+                            <div class="col-12">
+                                <label for="ticket_price" class="form-label">Ticket price</label>
+                                <input type="number" name="ticket_price" class="form-control @error('ticket_price') is-invalid @enderror" id="ticket_price" value="{{ $event->ticket_price ?? '' }}">
+                                @error('ticket_price')
+                                <span class="invalid-feedback" role="alert">
                                 <strong>{{$message}}</strong>
                                 </span>
-                            @enderror
-                        </div>
+                                @enderror
+                            </div>
 
-                        <div class="col-12">
-                            <label for="alt_text" class="form-label">Summary</label>
-                            <textarea class="form-control @error('alt_text') is-invalid @enderror" name="alt_text" id="alt_text" rows="3" value="{{ $event->alt_text ?? '' }}"></textarea>
-                            @error('alt_text')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{$message}}</strong>
-                                </span>
-                            @enderror
-                        </div>
-
-                        <div class="col-12">
-                            <label for="description" class="form-label">More description</label>
-                            <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description" rows="3" value="{{ $event->description ?? '' }}"></textarea>
-                            @error('description')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{$message}}</strong>
-                                </span>
-                            @enderror
-                        </div>
-
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-primary" name="next">Next</button>
-                        </div>
-                    </form>
-                    </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary" name="next">Next</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
         </div>
