@@ -9,6 +9,13 @@ class Review extends Model
 {
     use HasFactory;
 
+    public $table = 'reviews';
+
+    protected $fillable = [
+        'client_customer_id','client_id',
+        'title', 'description', 'rating',
+    ];
+
     function client(){
         return $this->belongsTo(Client::class);
     }

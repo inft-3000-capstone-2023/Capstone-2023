@@ -12,6 +12,10 @@ class Client_Customer extends Model
 
     public $table = 'client_customers';
 
+    protected $fillable = [
+        'user_id','client_id',
+    ];
+
     function client(){
         return $this->belongsTo(Client::class);
     }
@@ -21,7 +25,7 @@ class Client_Customer extends Model
     }
 
     function reviews(){
-        return $this->hasMany(Review::class);
+        return $this->hasMany(Review::class, 'client_customer_id');
     }
 
     function transactions(){

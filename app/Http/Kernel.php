@@ -4,6 +4,9 @@ namespace App\Http;
 
 use App\Http\Middleware\CheckUserIsAdmin;
 use App\Http\Middleware\CheckUserIsClientUser;
+use App\Http\Middleware\CheckUserIsCustomer;
+use App\Http\Middleware\CheckUserIsCustomerAndLoggedIn;
+use App\Http\Middleware\CheckUserOwnsReview;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -67,5 +70,8 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'check.user.admin' => CheckUserIsAdmin::class,
         'check.user.clientuser' => CheckUserIsClientUser::class,
+        'check.user.customer' => CheckUserIsCustomer::class,
+        'check.user.customer.loggedIn' => CheckUserIsCustomerAndLoggedIn::class,
+        'check.user.owns.review' => CheckUserOwnsReview::class,
     ];
 }
