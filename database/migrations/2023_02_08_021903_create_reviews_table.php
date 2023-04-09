@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('client_customer_id');
             $table->foreignId('client_id');
-            $table->string('title');
-            $table->text('description');
+            $table->string('title')->nullable();
+            $table->text('description')->nullable();
             $table->integer("rating");
             $table->timestamps();
 

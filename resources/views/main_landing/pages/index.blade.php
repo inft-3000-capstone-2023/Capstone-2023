@@ -22,7 +22,12 @@
                         <div class="home-hero">
                             <span class="home-text">WELCOME TO NETS</span>
                             <h1 class="home-text01">Create your event today..</h1>
-                            <button class="home-button button">Get Started</button>
+                            @auth
+                                <button onclick="location.href='{{ route('client.dashboard', ['client' => Auth::user()->client_id()]) }}'" class="home-button button">Get Started</button>
+                            @else
+                                <button onclick="location.href='{{ route('login') }}'" class="home-button button">Get Started</button>
+                            @endauth
+
                         </div>
                         <div class="home-banner">
                             <h1 class="home-text02">Why NETS?</h1>
