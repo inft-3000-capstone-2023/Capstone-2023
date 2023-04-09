@@ -53,7 +53,7 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="date_time" class="form-label">Date-Time</label>
+                            <label for="date_time" class="form-label">Start Time</label>
                             <input type="datetime-local" name="date_time" class="form-control @error('date_time') is-invalid @enderror" id="date_time" value="{{old('date_time') ?? $event->date_time}}">
                             @error('date_time')
                                 <span class="invalid-feedback" role="alert">
@@ -63,14 +63,35 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="time_zone" class="form-label">Time Zone</label>
-                            <input type="text" class="form-control @error('time_zone') is-invalid @enderror" name="time_zone" id="time_zone" value="{{old('time_zone') ?? $event->time_zone}}">
-                            @error('time_zone')
-                                <span class="invalid-feedback" role="alert">
-                                <strong>{{$message}}</strong>
-                                </span>
+                            <label for="end_time" class="form-label">End Time</label>
+                            <input type="datetime-local" name="end_time" class="form-control @error('end_time') is-invalid @enderror" id="end_time" value="{{ old('end_time') ?? $event->end_time }}">
+                            @error('end_time')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                             @enderror
                         </div>
+
+                        <div class="col-md-6">
+                            <label for="time_zone" class="form-label">Time Zone</label>
+                            <input type="text" class="form-control @error('time_zone') is-invalid @enderror" name="time_zone" id="time_zone" value="{{ old('time_zone') ?? $event->time_zone }}">
+                            @error('time_zone')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="venue" class="form-label">Venue</label>
+                            <input type="text" class="form-control @error('venue') is-invalid @enderror" name="venue" id="venue" value="{{ old('venue') ?? $event->venue }}">
+                            @error('venue')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+
 
                         <div class="col-12">
                             <button type="submit" class="btn btn-primary">Publish</button>

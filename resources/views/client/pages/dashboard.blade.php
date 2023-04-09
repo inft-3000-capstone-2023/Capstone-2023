@@ -22,7 +22,7 @@
                                         <div class="card-body">
                                             <h5 class="card-title">Create your event</h5>
                                             <p class="card-text">Creating an event is an exciting opportunity to bring people together and create a memorable experience. </p>
-                                            <a href="{{route('client.createS1',$client)}}" class="btn btn-primary">Create!</a>
+                                            <a href="{{route('client.createS1', $client)}}" class="btn btn-primary">Create!</a>
                                         </div>
                                     </div>
                                 </div>
