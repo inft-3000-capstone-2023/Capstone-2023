@@ -75,6 +75,19 @@ class ClientCustomerController extends Controller
         return view('customer.customer_client_views.view_event', compact(['client', 'event']));
     }
 
+    public function checkout_contact_info(Client $client, Event $event){
+        return view('customer.customer_client_views.checkout.contact_info', compact(['client', 'event']));
+    }
+    public function checkout_order_overview(Client $client, Event $event){
+        return view('customer.customer_client_views.checkout.order_overview', compact(['client', 'event']));
+    }
+    public function checkout_billing_info(Client $client, Event $event){
+        return view('customer.customer_client_views.checkout.billing_info', compact(['client', 'event']));
+    }
+    public function checkout_order_success(Client $client, Event $event){
+        return view('customer.customer_client_views.checkout.order_confirmation', compact(['client', 'event']));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

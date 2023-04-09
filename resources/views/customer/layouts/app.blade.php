@@ -15,6 +15,9 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    <script src="../../../js/checkout.js"></script>
+    @stack('other-scripts')
 </head>
 <body>
     <div id="app">
