@@ -77,11 +77,11 @@ Route::get('/tickets/{client}/{event}', [App\Http\Controllers\ClientCustomerCont
     'view_event_page'])->name('view_event_page');
 
 //routes for the customer buying tickets to the client's event--------------------------------------------------
-Route::get('/tickets/{client}/checkout/contact_info', [App\Http\Controllers\ClientCustomerController::class,
+Route::get('/tickets/{client}/{event}/checkout/contact_info', [App\Http\Controllers\ClientCustomerController::class,
     'checkout_contact_info'])->name('checkout_contact_info');
-Route::get('/tickets/{client}/checkout/overview', [App\Http\Controllers\ClientCustomerController::class,
+Route::get('/tickets/{client}/{event}/checkout/overview', [App\Http\Controllers\ClientCustomerController::class,
     'checkout_order_overview'])->name('checkout_order_overview');
-Route::get('/tickets/{client}/checkout/billing', [App\Http\Controllers\ClientCustomerController::class,
+Route::get('/tickets/{client}/{event}/checkout/billing', [App\Http\Controllers\ClientCustomerController::class,
     'checkout_billing_info'])->name('checkout_billing_info');
-Route::get('/tickets/{client}/checkout/success', [App\Http\Controllers\ClientCustomerController::class,
+Route::get('/tickets/{client}/{event}/checkout/success', [App\Http\Controllers\ClientCustomerController::class,
     'checkout_order_success'])->name('checkout_order_success');

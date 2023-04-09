@@ -23,8 +23,8 @@
                 <div class="row">
                     <h4>About This Event</h4>
                 </div>
-                <div class="row">
-                    <h5>[X Hours]</h5>
+                <div class="row text-muted">
+                    <h5>{{ $event->date_time->diffInHours($event->end_time, false) . " Hours"}}</h5>
                 </div>
                 <div class="row text-muted">
                     <h5>{{ $event->event_description }}</h5>
@@ -37,13 +37,13 @@
                         {{ $event->date_time->format('Y') }}</h5>
                 </div>
                 <div class="row text-muted">
-                    <h5>[start time] - [end time]</h5>
+                    <h5>{{ $event->date_time->format('g:i a') }} - {{ $event->end_time->format('g:i a') }}</h5>
                 </div>
                 <div class="row mt-5">
                     <h4>Location</h4>
                 </div>
                 <div class="row text-muted">
-                    <h5>[Venue]</h5>
+                    <h5>{{ $event->venue }}</h5>
                 </div>
                 <div class="row text-muted">
                     <h5>{{ $event->street }}, {{ $event->city }}, {{ $event->province }}</h5>
@@ -57,13 +57,13 @@
                             <h5>Admission</h5>
                         </div>
                         <div class="col-2 ps-2 pe-2" >
-                            <a type="button" class="btn btn-primary form-control p-1">-</a>
+                            <a id="decreaseTicketNum" type="button" class="btn btn-primary form-control p-1">-</a>
                         </div>
                         <div class="col-2 text-center mb-0">
-                            <h4 style="margin-bottom: 0px" >X</h4>
+                            <h4 style="margin-bottom: 0px" >1</h4>
                         </div>
                         <div class="col-2 ps-2 pe-2">
-                            <a type="button" class="btn btn-primary form-control p-1">+</a>
+                            <a id="increaseTicketNum" type="button" class="btn btn-primary form-control p-1">+</a>
                         </div>
                     </div>
                     <div class="row mt-3">
@@ -71,12 +71,12 @@
                             <h5>Price</h5>
                         </div>
                         <div class="col-6 text-end">
-                            <h5>$XX.XX</h5>
+                            <h5>${{$event->ticket_price}}</h5>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <a href="{{ route('checkout_contact_info', $client) }}" type="button" class="btn btn-primary btn-lg form-control">Reserve a Spot</a>
+                            <a href="{{ route('checkout_contact_info', [$client, $event]) }}" type="button" class="btn btn-primary btn-lg form-control">Reserve a Spot</a>
                         </div>
                     </div>
                     </div>
@@ -87,4 +87,11 @@
 
         </div>
     </div>
+
 @endsection
+@push('other-scripts')
+    <script>
+        console.log("do something in js")
+    </script>
+
+@endpush

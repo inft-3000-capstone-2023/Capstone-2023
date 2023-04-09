@@ -73,7 +73,7 @@ class EventSeeder extends Seeder
             'event_description' => 'Screening night of the Documentary Program: "MY NAME IS ANDREA"',
             'max_tickets_per_customer' => 3,
             'date_time' => Carbon::now()->addDays(6),
-            'end_time' => Carbon::now()->addDays(1)->addHours(2),
+            'end_time' => Carbon::now()->addDays(6)->addHours(2),
             'time_zone' => 'AST',
             'venue' => 'NSCC IT Campus',
             'street' => '5885 Leeds St',
