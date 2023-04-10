@@ -91,9 +91,19 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="date_time" class="form-label">Date-Time</label>
+                            <label for="date_time" class="form-label">Start Time</label>
                             <input type="datetime-local" name="date_time" required class="form-control @error('date_time') is-invalid @enderror" id="date_time" value="{{ $event->date_time ?? '' }}">
                             @error('date_time')
+                            <span class="invalid-feedback" role="alert">
+                                    <strong>{{$message}}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="end_time" class="form-label">End Time</label>
+                            <input type="datetime-local" name="end_time" required class="form-control @error('end_time') is-invalid @enderror" id="end_time" value="{{ $event->end_time ?? '' }}">
+                            @error('end_time')
                             <span class="invalid-feedback" role="alert">
                                     <strong>{{$message}}</strong>
                                 </span>
@@ -104,6 +114,16 @@
                             <label for="time_zone" class="form-label">Time Zone</label>
                             <input type="text" name="time_zone" required class="form-control @error('time_zone') is-invalid @enderror" id="time_zone" value="{{ $event->time_zone ?? '' }}">
                             @error('time_zone')
+                            <span class="invalid-feedback" role="alert">
+                                    <strong>{{$message}}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="venue" class="form-label">Venue</label>
+                            <input type="text" name="venue" required class="form-control @error('venue') is-invalid @enderror" id="venue" value="{{ $event->venue ?? '' }}">
+                            @error('venue')
                             <span class="invalid-feedback" role="alert">
                                     <strong>{{$message}}</strong>
                                 </span>

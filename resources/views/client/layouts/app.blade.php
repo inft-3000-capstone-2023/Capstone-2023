@@ -15,6 +15,9 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl+JdctsyE0g6zpqz8+uKINUEEO4DpF66UI1e4oxKX" crossorigin="anonymous">
+
 </head>
 <body>
     <div id="app">
@@ -79,9 +82,28 @@
             </div>
         </nav>
 
-        <main class="py-4">
-            @yield('content')
-        </main>
+        <div class="container-fluid justify-content-center">
+            <div class="row">
+                <div class="col-md-2" style="display: inline-block;">
+                    <div class="py-4 ">
+                    @include('client.layouts.sidebar')
+                    </div>
+                </div>
+                <div class="col-md-10" style="display: inline-block;">
+                    <!-- Main content -->
+                    <main class="py-4">
+                        <div class="container">
+                            @yield('content')
+                        </div>
+                    </main>
+                </div>
+            </div>
+        </div>
+
     </div>
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.3/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoJtKh7z7lGz7fuP4F8nfdFvAOA6Gg/z6Y5J6XqqyGXYM2ntX1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl+JdctsyE0g6zpqz8+uKINUEEO4DpF66UI1e4oxKX" crossorigin="anonymous"></script>
+
 </body>
 </html>

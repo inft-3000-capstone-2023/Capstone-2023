@@ -38,9 +38,8 @@ class EventController extends Controller
             $bookings[] = [
                 'title' => $event->event_title,
                 'start' => $event->date_time,
-                'allDay' => true
                 // If you have an 'end_time' property, add it here
-                // 'end' => $event->end_time
+                'end' => $event->end_time
             ];
         }
 
@@ -171,7 +170,9 @@ class EventController extends Controller
             'province' => 'required',
             'postal_code' => 'required',
             'date_time' => 'required',
+            'end_time' => 'required',
             'time_zone' => 'required',
+            'venue' => 'required',
         ]);
 
         if (empty($request->session()->get('event'))) {

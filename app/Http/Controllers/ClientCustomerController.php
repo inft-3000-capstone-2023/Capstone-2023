@@ -180,7 +180,6 @@ class ClientCustomerController extends Controller
     {
         //
         $searchTerm = $request->searchTerm;
-
         $client_customers = $client->customers()->get();
 
         $customers = [];
