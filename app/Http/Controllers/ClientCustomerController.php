@@ -17,7 +17,8 @@ use Illuminate\Support\Str;
 class ClientCustomerController extends Controller
 {
     public function __construct(){
-        $this->middleware('check.user.customer');
+        $this->middleware('check.user.customer')->only(['index', 'client_page', 'bio_page', 'reviews_page',
+            'view_event_page', 'checkout_contact_info', 'checkout_order_overview', 'checkout_billing_info', 'checkout_order_success']);
     }
 
     /**
