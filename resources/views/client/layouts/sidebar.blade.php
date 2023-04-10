@@ -4,6 +4,8 @@
 
     <!-- Navigation Links -->
     <div class="list-group">
+        @if(Auth::check())
+
         <a href="{{ route('client.dashboard',['client' => Auth::user()->client_id()]) }}" class="list-group-item list-group-item-action {{ request()->routeIs('dashboard') ? 'active' : '' }}">
             <i class="mr-4">
                 <!-- Dashboard icon -->
@@ -28,6 +30,6 @@
             </i>
             {{ __('My Organizer') }}
         </a>
-
+        @endif
     </div>
 </div>
