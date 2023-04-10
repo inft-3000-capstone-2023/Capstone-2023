@@ -9,6 +9,7 @@ use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -34,7 +35,10 @@ class RegisterController extends Controller
      * @var string
      */
     //will have to change this to redirect to the client's home page
-    protected $redirectTo = RouteServiceProvider::HOME;
+    public function redirectTo() {
+        $client_id = Auth::user()->client_id();
+        return route('client.dashboard', $client_id);
+    }
 
     /**
      * Create a new controller instance.
